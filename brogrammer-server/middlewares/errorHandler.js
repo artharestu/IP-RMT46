@@ -6,6 +6,9 @@ module.exports = (error, req, res, next) => {
       message = error.errors[0].message;
       break;
     case 'SequelizeUniqueConstraintError':
+      status = 400;
+      message = 'Data already exist';
+      break;
     case 'SequelizeForeignKeyConstraintError':
     case 'InvalidData':
       status = 400;

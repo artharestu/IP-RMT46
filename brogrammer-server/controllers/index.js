@@ -1,7 +1,11 @@
-class Controllers {
-  static home(req, res) {
-    res.send('Hello World')
-  }
+const UserController = require('./userController')
+const home = (req, res) => {
+  res.status(200).json({ message: 'Hello Brogrammer' })
 }
 
-module.exports = Controllers
+module.exports = {
+  home,
+  register: UserController.register,
+  login: UserController.login
+}
+
