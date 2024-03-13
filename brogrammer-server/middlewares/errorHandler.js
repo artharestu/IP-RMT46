@@ -18,6 +18,10 @@ module.exports = (error, req, res, next) => {
       status = 401;
       message = 'Invalid email or password';
       break;
+    case 'InvalidDataInput':
+      status = 401;
+      message = 'Invalid data input';
+      break;
     case 'Unauthorized':
     case 'JsonWebTokenError':
       status = 401;

@@ -1,3 +1,4 @@
+const OpenAI = require('./openAI')
 const UserController = require('./userController')
 const home = (req, res) => {
   res.status(200).json({ message: 'Hello Brogrammer' })
@@ -6,6 +7,7 @@ const home = (req, res) => {
 module.exports = {
   home,
   register: UserController.register,
-  login: UserController.login
+  login: UserController.login,
+  chatAI: OpenAI.chatAI
 }
 
