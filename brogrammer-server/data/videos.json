@@ -3,36 +3,42 @@
     "title": "Apa itu HTML5?",
     "urlVideo": "Q2VqCG13ejA",
     "part": 1,
-    "CourseId": 1
+    "CourseId": 1,
+    "description": "Apa itu HTML5? Mengenal tag-tag dasar HTML5, mengetahui tag-tag dasar HTML5, dan membuat website sederhana dengan HTML5."
   },
   {
     "title": "Semantic HTML5?",
     "urlVideo": "o3m15BWi2HM",
     "part": 2,
-    "CourseId": 1
+    "CourseId": 1,
+    "description": "Semantic HTML5 adalah HTML yang disematkan. Mengenal tag-tag dasar HTML5, mengetahui tag-tag dasar HTML5, dan membuat website sederhana dengan HTML5."
   },
   {
     "title": "Images Elements",
     "urlVideo": "9g1Zz83FXyc",
     "part": 3,
-    "CourseId": 1
+    "CourseId": 1,
+    "description": "Mengenal tag-tag dasar HTML5, mengetahui tag-tag dasar HTML5, dan membuat website sederhana dengan HTML5."
   },
   {
     "title": "Apa itu Tailwind CSS?",
     "urlVideo": "z3slaXqmkT0",
     "part": 1,
-    "CourseId": 2
+    "CourseId": 2,
+    "description": "Apa itu Tailwind CSS? Mengenal tag-tag dasar HTML5, mengetahui tag-tag dasar HTML5, dan membuat website sederhana dengan HTML5."
   },
   {
     "title": "Kenapa Tailwind CSS?",
     "urlVideo": "ELCr9MyRTH8",
     "part": 2,
-    "CourseId": 2
+    "CourseId": 2,
+    "description": "Kenapa Tailwind CSS? Mengenal tag-tag dasar HTML5, mengetahui tag-tag dasar HTML5, dan membuat website sederhana dengan HTML5."
   },
   {
     "title": "Instalasi & Konfigurasi Tailwind CSS",
     "urlVideo": "_lgltVQ3Lvo",
     "part": 3,
-    "CourseId": 2
+    "CourseId": 2,
+    "description": "Instalasi & Konfigurasi Tailwind CSS. Mengenal tag-tag dasar HTML5, mengetahui tag-tag dasar HTML5, dan membuat website sederhana dengan HTML5."
   }
 ]
