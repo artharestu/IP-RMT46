@@ -37,6 +37,36 @@ module.exports = (sequelize, DataTypes) => {
     status: {
       type: DataTypes.STRING,
       defaultValue: 'pending'
+    },
+    orderId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Order ID is required'
+        },
+        notNull: {
+          args: true,
+          msg: 'Order ID is required'
+        }
+      }
+    },
+    tokenPayment: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Token Payment is required'
+        },
+        notNull: {
+          args: true,
+          msg: 'Token Payment is required'
+        }
+      }
     }
   }, {
     sequelize,

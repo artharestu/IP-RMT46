@@ -9,4 +9,7 @@ router.post('/login', Controller.login);
 
 router.post('/chat', Controller.chatAI);
 
+router.get('/payment/init', Controller.initPayment);
+router.get('/payment/verify', Controller.verifyPayment);
+
 module.exports = router;
