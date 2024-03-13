@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Belajar HTML5",
+    "description": "Mari kita mulai belajar mengenai HTML5. Mengenal tag-tag dasar HTML5, mengetahui tag-tag dasar HTML5, dan membuat website sederhana dengan HTML5.",
+    "price": 100000,
+    "isActive": true,
+    "AuthorId": 1,
+    "CategoryId": 4
+  },
+  {
+    "title": "Belajar Tailwind CSS",
+    "description": "Mulai belajar framework Tailwind CSS. Tailwind CSS adalah framework CSS yang paling populer dan sering digunakan.",
+    "price": 100000,
+    "isActive": true,
+    "AuthorId": 1,
+    "CategoryId": 3
+  },
+  {
+    "title": "string",
+    "description": "string",
+    "price": 100,
+    "isActive": true,
+    "AuthorId": 1,
+    "CategoryId": 1
+  }
+]

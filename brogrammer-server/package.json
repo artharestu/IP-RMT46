@@ -1,0 +1,30 @@
+{
+  "name": "brogrammer-server",
+  "version": "1.0.0",
+  "description": "Brogrammer Server is E-learning App Server",
+  "main": "app.js",
+  "scripts": {
+    "createDBTest": "clear && npx sequelize --env test db:drop && npx sequelize --env test db:create",
+    "migrateTest": "clear && npx sequelize --env test db:migrate:undo:all && npx sequelize --env test db:migrate && npx sequelize --env test db:seed:all",
+    "createDB": "clear && npx sequelize db:drop && npx sequelize db:create",
+    "migrate": "clear && npx sequelize db:migrate:undo:all && npx sequelize db:migrate && npx sequelize db:seed:all",
+    "status": "clear && npx sequelize db:migrate:status",
+    "start": "clear && nodemon bin/www",
+    "all": "npm run createDB && npm run migrate && npm run start",
+    "test": "clear && jest --detectOpenHandles -runInBand"
+  },
+  "author": "artharestu",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "pg": "^8.11.3",
+    "sequelize": "^6.37.1",
+    "sequelize-cli": "^6.6.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
