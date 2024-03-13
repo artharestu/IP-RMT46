@@ -16,7 +16,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       profilePicture: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
       },
       bio: {
         type: Sequelize.STRING

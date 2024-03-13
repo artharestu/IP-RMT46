@@ -4,19 +4,40 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Subscriber extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      Subscriber.belongsTo(models.User, {
+        foreignKey: 'UserId',
+        as: 'user'
+      })
+      Subscriber.belongsTo(models.Course, {
+        foreignKey: 'CourseId',
+        as: 'course'
+      })
     }
   }
   Subscriber.init({
-    UserId: DataTypes.INTEGER,
-    CourseId: DataTypes.INTEGER,
-    status: DataTypes.STRING
+    UserId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Users',
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE'
+    },
+    CourseId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Courses',
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE'
+    },
+    status: {
+      type: DataTypes.STRING,
+      defaultValue: 'pending'
+    }
   }, {
     sequelize,
     modelName: 'Subscriber',
