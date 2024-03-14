@@ -5,6 +5,7 @@ import Login from "../views/Login";
 import HomePage from "../views/HomePage";
 import DetailCourse from "../views/DetailCourse";
 import Course from "../components/Course";
+import Video from "../components/Video";
 
 export const router = createBrowserRouter([
   {
@@ -42,9 +43,10 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: <Course />,
-            // loader: () => {
-            //   redirect("/detail-course/:id");
-            // },
+          },
+          {
+            path: ":videoId",
+            element: <Video />,
           },
         ],
       },
