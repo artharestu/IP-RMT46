@@ -72,6 +72,20 @@ module.exports = (sequelize, DataTypes) => {
       },
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE'
+    },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Description is required'
+        },
+        notNull: {
+          args: true,
+          msg: 'Description is required'
+        }
+      }
     }
   }, {
     sequelize,
