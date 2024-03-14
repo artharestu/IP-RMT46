@@ -8,6 +8,7 @@ router.post('/register', Controller.register);
 router.post('/login', Controller.login);
 
 router.get('/courses', Controller.getCourses)
+router.get('/course/:id', Controller.getDetailCourse)
 router.get('/categories', Controller.getCategories)
 
 router.post('/chat', Controller.chatAI);

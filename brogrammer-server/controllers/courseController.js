@@ -1,4 +1,4 @@
-const { Course, Category } = require("../models")
+const { Course, Category, Video, User } = require("../models")
 const { Op } = require('sequelize');
 
 const getCourses = async (req, res, next) => {
@@ -46,7 +46,34 @@ const getCourses = async (req, res, next) => {
   }
 }
 
+const getDetailCourse = async (req, res, next) => {
+  const { id } = req.params
+  try {
+    const course = await Course.findOne({
+      where: { id },
+      include: [
+        {
+          model: Category,
+          attributes: ['name']
+        },
+        {
+          model: Video,
+          attributes: ['title', 'urlVideo', 'part', 'description']
+        },
+        {
+          model: User,
+          attributes: ['email']
+        }
+      ]
+    })
+    res.status(200).json(course)
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}
 
 module.exports = {
-  getCourses
+  getCourses,
+  getDetailCourse
 }

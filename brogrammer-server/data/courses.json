@@ -18,12 +18,12 @@
     "videoThumbnail": "z3slaXqmkT0"
   },
   {
-    "title": "string",
-    "description": "string",
-    "price": 100,
+    "title": "Belajar Dasar Javascript",
+    "description": "Di seri ini kita akan mempelajari mengenai konsep dasar pemrograman, istilah2 yang ada dalam dunia pemrograman, cara menulis dan mengeksekusi program, dll.",
+    "price": 150000,
     "isActive": true,
     "AuthorId": 1,
     "CategoryId": 1,
-    "videoThumbnail": "Q2VqCG13ejA"
+    "videoThumbnail": "RUTV_5m4VeI"
   }
 ]

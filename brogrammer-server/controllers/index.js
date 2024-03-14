@@ -16,6 +16,7 @@ module.exports = {
   initPayment: Subscribe.initPayment,
   verifyPayment: Subscribe.verifyPayment,
   getCourses: Course.getCourses,
+  getDetailCourse: Course.getDetailCourse,
   getCategories: Category.getCategories
 }
 
