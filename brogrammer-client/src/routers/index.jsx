@@ -3,6 +3,8 @@ import RouteLayout from "../layouts/RouteLayout";
 import Register from "../views/Register";
 import Login from "../views/Login";
 import HomePage from "../views/HomePage";
+import DetailCourse from "../views/DetailCourse";
+import Course from "../components/Course";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +31,19 @@ export const router = createBrowserRouter([
         loader: () => {
           return localStorage.getItem("token") ? redirect("/") : null;
         },
+      },
+      {
+        path: "/detail-course/:id",
+        element: <DetailCourse />,
+        children: [
+          {
+            index: true,
+            element: <Course />,
+            // loader: () => {
+            //   redirect("/detail-course/:id");
+            // },
+          },
+        ],
       },
     ],
   },

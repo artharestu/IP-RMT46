@@ -1,14 +1,15 @@
+import Button from "./Button";
+import { useNavigate } from "react-router-dom";
+
 export default function Card({
-  // id,
+  id,
   title,
   description,
   price,
   category,
   videoThumbnail,
 }) {
-  const style = {
-    height: "200px",
-  };
+  const navigate = useNavigate();
 
   const priceToRupiah = () => {
     return price.toLocaleString("id-ID", {
@@ -47,19 +48,17 @@ export default function Card({
             <h6 className="card-text">
               <span className="text-warning">Description:</span>
             </h6>
-            <p className="card-text card-description" style={style}>
-              {description}
-            </p>
+            <p className="card-text card-description">{description}</p>
           </li>
         </ul>
-        <button
+        <Button
           className="btn btn-outline-warning w-100"
-          // onClick={() => {
-          //   handleAddCoin(id);
-          // }}
+          onClick={() => {
+            navigate(`/detail-course/${id}`);
+          }}
         >
-          Subscribe
-        </button>
+          Detail
+        </Button>
       </div>
     </div>
   );
