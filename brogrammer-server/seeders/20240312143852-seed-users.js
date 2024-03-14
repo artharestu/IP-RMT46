@@ -11,9 +11,20 @@ module.exports = {
       user.updatedAt = new Date();
     })
     await queryInterface.bulkInsert('Users', users, {})
+
+    const profiles = []
+    for (let i = 1; i <= users.length; i++) {
+      profiles.push({
+        UserId: i,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      })
+    }
+    await queryInterface.bulkInsert('Profiles', profiles, {})
   },
 
   async down(queryInterface, Sequelize) {
     await queryInterface.bulkDelete('Users', null, {})
+    await queryInterface.bulkDelete('Profiles', null, {})
   }
 };

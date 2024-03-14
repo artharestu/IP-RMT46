@@ -11,15 +11,30 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Profile.init({
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
+    firstName: {
+      type: DataTypes.STRING,
+      defaultValue: '-'
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      defaultValue: '-'
+    },
     profilePicture: {
       type: DataTypes.STRING,
       defaultValue: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
     },
-    bio: DataTypes.STRING,
-    dateOfBirth: DataTypes.DATE,
-    phoneNumber: DataTypes.STRING,
+    bio: {
+      type: DataTypes.STRING,
+      defaultValue: '-'
+    },
+    dateOfBirth: {
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    phoneNumber: {
+      type: DataTypes.STRING,
+      defaultValue: '-'
+    },
     UserId: {
       type: DataTypes.INTEGER,
       references: {

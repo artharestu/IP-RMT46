@@ -1,6 +1,7 @@
 const express = require("express");
 const Controller = require("../controllers");
 const authentication = require("../middlewares/authentication");
+const upload = require("../middleware/multer");
 
 const router = express.Router();
 
@@ -22,5 +23,8 @@ router.get('/subscription/:CourseId', Controller.addSubscriber);
 router.get('/subscriber/:CourseId', Controller.getSubscriber);
 
 router.get('/video/:videoId', Controller.getVideo);
+
+router.put('/profile/:id', Controller.updateProfile);
+router.patch('/profile/:id', upload.single('profilePicture'), Controller.updateProfilePicture);
 
 module.exports = router;

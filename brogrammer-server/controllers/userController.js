@@ -1,11 +1,13 @@
 const { compare } = require("../helpers/bcrypt")
 const { sign } = require("../helpers/jwt")
-const { User } = require("../models")
+const { User, Profile } = require("../models")
 
 const register = async (req, res, next) => {
   const { email, password } = req.body
   try {
     const user = await User.create({ email, password })
+    await Profile.create({ UserId: user.id })
+
     res.status(201).json({
       email: user.email,
       role: user.role,

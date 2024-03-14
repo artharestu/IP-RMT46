@@ -10,23 +10,28 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       firstName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: '-'
       },
       lastName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: '-'
       },
       profilePicture: {
         type: Sequelize.STRING,
         defaultValue: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
       },
       bio: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: '-'
       },
       dateOfBirth: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: new Date()
       },
       phoneNumber: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: '-'
       },
       createdAt: {
         allowNull: false,

@@ -4,6 +4,7 @@ const Subscribe = require('./subscribeController')
 const Course = require('./courseController')
 const Category = require('./categoryController')
 const Video = require('./videoController')
+const Profile = require('./profileController')
 
 const home = (req, res) => {
   res.status(200).json({ message: 'Hello, I am Brogrammer Server App' })
@@ -21,5 +22,7 @@ module.exports = {
   addSubscriber: Subscribe.addSubscriber,
   getSubscriber: Subscribe.getSubscriber,
   getVideo: Video.getVideo,
+  updateProfile: Profile.updateProfile,
+  updateProfilePicture: Profile.updateProfilePicture
 }
 
