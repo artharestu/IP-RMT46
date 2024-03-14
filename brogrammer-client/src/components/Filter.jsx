@@ -19,6 +19,9 @@ export default function Filter({
       const response = await serverRequest({
         url: "/categories",
         method: "get",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
       setCategory(response.data);
     } catch (error) {

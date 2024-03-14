@@ -12,8 +12,13 @@ export default function Course() {
   const getCourse = async () => {
     setIsLoading(true);
     try {
-      const response = await serverRequest.get(`/course/${id}`);
-      console.log(response);
+      const response = await serverRequest({
+        url: `/course/${id}`,
+        method: "get",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       setData(response.data);
     } catch (error) {
       errorNotification(error.response.data.message);

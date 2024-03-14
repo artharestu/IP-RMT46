@@ -23,7 +23,15 @@ export default function HomePage() {
     if (categoryId) requestConfig.params.categoryId = categoryId;
 
     try {
-      const response = await serverRequest.get("/courses", requestConfig);
+      const response = await serverRequest({
+        url: "/courses",
+        method: "get",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        ...requestConfig,
+      });
+
       setData(response.data.data);
     } catch (error) {
       errorNotification(error.response.data.message);

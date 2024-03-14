@@ -14,9 +14,9 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
-        // loader: () => {
-        //   return localStorage.getItem("token") ? null : redirect("/login");
-        // },
+        loader: () => {
+          return localStorage.getItem("token") ? null : redirect("/login");
+        },
       },
       {
         path: "/register",
@@ -35,6 +35,9 @@ export const router = createBrowserRouter([
       {
         path: "/detail-course/:id",
         element: <DetailCourse />,
+        loader: () => {
+          return localStorage.getItem("token") ? null : redirect("/login");
+        },
         children: [
           {
             index: true,

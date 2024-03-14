@@ -9,8 +9,13 @@ export default function Sidebar() {
 
   const getCourse = async () => {
     try {
-      const response = await serverRequest.get(`/course/${id}`);
-      console.log(response.data.Videos);
+      const response = await serverRequest({
+        url: `/course/${id}`,
+        method: "get",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       setVideos(response.data.Videos);
     } catch (error) {
       errorNotification(error.response.data.message);
