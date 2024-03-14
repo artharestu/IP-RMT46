@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { serverRequest } from "../utils/axios";
 import { Link, useNavigate } from "react-router-dom";
+import errorNotification from "../utils/errorNotification";
+import Button from "../components/Button";
+import showToast from "../utils/toast";
 
 export default function Login() {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+
   const [user, setUser] = useState({
-    fullName: "",
     email: "",
     password: "",
   });
@@ -18,7 +22,8 @@ export default function Login() {
     }));
   };
 
-  const handleSubmit = async () => {
+  const handleLogin = async () => {
+    setIsLoading(true);
     try {
       const response = await serverRequest({
         method: "post",
@@ -26,18 +31,17 @@ export default function Login() {
         data: user,
       });
       localStorage.setItem("token", response.data.access_token);
-
-      console.log("Login Successful..");
+      showToast("Login Successful..");
       navigate("/");
     } catch (error) {
-      error.response.data.message
-        ? console.log(error.response.data.message)
-        : console.log(error);
+      errorNotification(error.response.data.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="p-5 my-3 border border-warning rounded shadow text-light w-75 mx-auto">
+    <div className="p-5 my-3 border border-warning rounded shadow text-light w-75 mx-auto bg-dark">
       <h3 className="text-warning">Login User</h3>
       <p>Login to your account</p>
       <div className="mb-3">
@@ -60,12 +64,13 @@ export default function Login() {
           onChange={handleOnChange}
         />
       </div>
-      <button
+      <Button
         className="btn btn-warning w-100 my-3 btn-lg"
-        onClick={handleSubmit}
+        onClick={handleLogin}
+        isLoading={isLoading}
       >
         Login
-      </button>
+      </Button>
       <p className="text-light text-center">
         Dont have a account? <Link to={"/register"}>Register</Link>
       </p>
