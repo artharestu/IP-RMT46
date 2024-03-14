@@ -33,7 +33,7 @@ module.exports = (error, req, res, next) => {
       break;
     case 'NotFound':
       status = 404;
-      message = 'error not found';
+      message = 'Data not found';
       break;
     default:
       status = 500;

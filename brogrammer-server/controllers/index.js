@@ -13,10 +13,11 @@ module.exports = {
   register: User.register,
   login: User.login,
   chatAI: OpenAI.chatAI,
-  initPayment: Subscribe.initPayment,
-  verifyPayment: Subscribe.verifyPayment,
   getCourses: Course.getCourses,
   getDetailCourse: Course.getDetailCourse,
-  getCategories: Category.getCategories
+  getCategories: Category.getCategories,
+  verifyPayment: Subscribe.verifyPayment,
+  addSubscriber: Subscribe.addSubscriber,
+  getSubscriber: Subscribe.getSubscriber
 }
 

@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Subscriber extends Model {
     static associate(models) {
@@ -39,7 +40,6 @@ module.exports = (sequelize, DataTypes) => {
     orderId: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
       validate: {
         notEmpty: {
           args: true,

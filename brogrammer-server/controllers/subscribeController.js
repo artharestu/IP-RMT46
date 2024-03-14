@@ -1,8 +1,9 @@
 const midtransClient = require('midtrans-client');
 const axios = require('axios');
 const { v4: uuidv4 } = require('uuid');
+const { Course, Subscriber } = require('../models')
 
-const initPayment = async (req, res, next) => {
+const initPayment = async (price, email) => {
   try {
     const snap = new midtransClient.Snap({
       isProduction: false,
@@ -14,26 +15,22 @@ const initPayment = async (req, res, next) => {
     const parameter = {
       "transaction_details": {
         "order_id": orderId,
-        "gross_amount": 10000
+        "gross_amount": price
       },
       "credit_card": {
         "secure": true
       },
       "customer_details": {
-        "first_name": "Artha",
-        "last_name": "Abadi",
-        "email": "artharestuabadi@gmail.com",
-        "phone": "085643440044"
+        "email": email
       }
     };
 
     const transaction = await snap.createTransaction(parameter)
 
-
-    res.status(200).json({
-      token: transaction.token,
-      order_id: orderId
-    })
+    return {
+      tokenPayment: transaction.token,
+      orderId: orderId
+    }
   } catch (error) {
     next(error)
   }
@@ -62,7 +59,53 @@ const verifyPayment = async (req, res, next) => {
     next(error)
   }
 }
+
+const addSubscriber = async (req, res, next) => {
+  const UserId = req.user.id
+  const email = req.user.email
+
+  const { CourseId } = req.params
+  try {
+    const course = await Course.findByPk(CourseId)
+    if (!course) throw { name: 'NotFound' }
+
+    const { orderId, tokenPayment } = await initPayment(course.price, email)
+
+    const subscriber = await Subscriber.create({
+      UserId,
+      CourseId,
+      orderId,
+      tokenPayment
+    })
+
+    res.status(201).json(subscriber)
+  } catch (error) {
+    next(error)
+  }
+}
+
+const getSubscriber = async (req, res, next) => {
+  const UserId = req.user.id
+  const { CourseId } = req.params
+
+  try {
+    const subscriber = await Subscriber.findOne({
+      where: {
+        UserId,
+        CourseId
+      },
+      attributes: ['id', 'UserId', 'CourseId', 'orderId', 'tokenPayment', 'status']
+    })
+    if (!subscriber) throw { name: 'NotFound' }
+
+    res.status(200).json(subscriber)
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}
 module.exports = {
-  initPayment,
-  verifyPayment
+  verifyPayment,
+  addSubscriber,
+  getSubscriber
 };

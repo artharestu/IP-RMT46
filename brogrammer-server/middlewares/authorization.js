@@ -1,7 +1,7 @@
 const { Job } = require('../models')
 
 const authorization = async (req, res, next) => {
-  const { role } = req.user
+  const { id, role } = req.user
   try {
     if (role === 'Admin') {
       next()
@@ -26,6 +26,18 @@ const adminAuth = async (req, res, next) => {
   const { role } = req.user
   try {
     if (role !== 'Admin') throw { name: 'Forbidden' }
+    next()
+  } catch (error) {
+    next(error)
+  }
+}
+
+const authSubscriber = async (req, res, next) => {
+  const userId = req.user.id
+  const courseId = req.params.id
+  try {
+    const subscription = await Subscription.findOne({ where: { userId, courseId } })
+    if (!subscription) throw { name: 'Forbidden' }
     next()
   } catch (error) {
     next(error)
