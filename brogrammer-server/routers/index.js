@@ -16,7 +16,7 @@ router.get('/categories', Controller.getCategories)
 
 router.post('/chat', Controller.chatAI);
 
-router.get('/payment/verify', Controller.verifyPayment);
+router.patch('/verify/:orderId', Controller.verifyPayment);
 
 router.get('/subscription/:CourseId', Controller.addSubscriber);
 router.get('/subscriber/:CourseId', Controller.getSubscriber);

@@ -58,7 +58,7 @@ const getDetailCourse = async (req, res, next) => {
         },
         {
           model: Video,
-          attributes: ['title', 'urlVideo', 'part', 'description']
+          attributes: ['id', 'title', 'urlVideo', 'part', 'description']
         },
         {
           model: User,

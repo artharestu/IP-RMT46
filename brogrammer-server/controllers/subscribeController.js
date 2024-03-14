@@ -37,8 +37,8 @@ const initPayment = async (price, email) => {
 }
 
 const verifyPayment = async (req, res, next) => {
+  const { orderId } = req.params
   try {
-    const orderId = 'f8f63c71-e058-4686-8006-183b59acd99e'
     const serverKey = process.env.MIDTRANS_SERVER_KEY
     const keyBase64 = Buffer.from(serverKey, 'ascii').toString('base64')
 
@@ -51,11 +51,15 @@ const verifyPayment = async (req, res, next) => {
       }
     })
 
+    if (response.data.status_code == 200)
+      await Subscriber.update({ status: 'subscribed' }, { where: { orderId } })
+
     res.status(200).json({
       status: response.data.status_code,
       message: response.data.status_message
     })
   } catch (error) {
+    console.log(error)
     next(error)
   }
 }
@@ -96,11 +100,8 @@ const getSubscriber = async (req, res, next) => {
       },
       attributes: ['id', 'UserId', 'CourseId', 'orderId', 'tokenPayment', 'status']
     })
-    if (!subscriber) throw { name: 'NotFound' }
-
     res.status(200).json(subscriber)
   } catch (error) {
-    console.log(error)
     next(error)
   }
 }
