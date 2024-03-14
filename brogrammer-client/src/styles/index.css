@@ -1,1 +1,50 @@
+.navbar {
+  opacity: 0.9;
+  background-color: hsla(32, 81%, 45%, 1);
+}
 
+body {
+  background-image: url('/bg-5.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.card {
+  opacity: 0.9;
+  width: 23vw;
+}
+
+.card-description {
+  height: 150px;
+}
+
+.card-title-home {
+  height: 50px;
+}
+
+fieldset {
+  opacity: 0.75;
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    width: 80vw;
+    margin: 0 auto;
+    opacity: 0.75;
+    text-align: center;
+  }
+
+  .card-description {
+    height: auto;
+  }
+
+  .card-title-home {
+    height: auto;
+  }
+
+  fieldset {
+    width: 80vw;
+  }
+}
