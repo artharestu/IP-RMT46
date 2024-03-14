@@ -34,13 +34,13 @@ const getCourses = async (req, res, next) => {
 
   try {
     const { rows, count } = await Course.findAndCountAll(options)
-    res.status(200).json([{
+    res.status(200).json({
       page: (!page) ? 1 : page,
       data: rows,
       totalData: count,
       totalPage: limit === 0 ? 1 : Math.ceil(count / limit),
       dataPerPage: limit === 0 ? count : limit
-    }]);
+    });
   } catch (error) {
     next(error)
   }

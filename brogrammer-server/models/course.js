@@ -85,6 +85,20 @@ module.exports = (sequelize, DataTypes) => {
       },
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE'
+    },
+    videoThumbnail: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Video Thumbnail is required'
+        },
+        notNull: {
+          args: true,
+          msg: 'Video Thumbnail is required'
+        }
+      }
     }
   }, {
     sequelize,

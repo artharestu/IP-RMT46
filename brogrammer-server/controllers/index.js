@@ -1,7 +1,8 @@
 const OpenAI = require('./openAI')
-const UserController = require('./userController')
+const User = require('./userController')
 const Subscribe = require('./subscribeController')
 const Course = require('./courseController')
+const Category = require('./categoryController')
 
 const home = (req, res) => {
   res.status(200).json({ message: 'Hello, I am Brogrammer Server App' })
@@ -9,11 +10,12 @@ const home = (req, res) => {
 
 module.exports = {
   home,
-  register: UserController.register,
-  login: UserController.login,
+  register: User.register,
+  login: User.login,
   chatAI: OpenAI.chatAI,
   initPayment: Subscribe.initPayment,
   verifyPayment: Subscribe.verifyPayment,
-  getCourses: Course.getCourses
+  getCourses: Course.getCourses,
+  getCategories: Category.getCategories
 }
 
