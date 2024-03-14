@@ -1,9 +1,15 @@
-const { Course } = require("../models")
+const { Course, Category } = require("../models")
 const { Op } = require('sequelize');
 
 const getCourses = async (req, res, next) => {
   const { authorId, sort, page, search, categoryId } = req.query
   const options = {
+    include: [
+      {
+        model: Category,
+        attributes: ['name']
+      }
+    ],
     where: {}
   }
 
@@ -28,8 +34,6 @@ const getCourses = async (req, res, next) => {
 
   try {
     const { rows, count } = await Course.findAndCountAll(options)
-    console.log(rows)
-    console.log(count)
     res.status(200).json([{
       page: (!page) ? 1 : page,
       data: rows,
@@ -38,7 +42,6 @@ const getCourses = async (req, res, next) => {
       dataPerPage: limit === 0 ? count : limit
     }]);
   } catch (error) {
-    console.log(error)
     next(error)
   }
 }

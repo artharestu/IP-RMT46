@@ -6,8 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Video extends Model {
     static associate(models) {
       Video.belongsTo(models.Course, {
-        foreignKey: 'CourseId',
-        as: 'course'
+        foreignKey: 'CourseId'
       })
     }
   }

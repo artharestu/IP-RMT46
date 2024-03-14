@@ -7,11 +7,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Subscriber.belongsTo(models.User, {
         foreignKey: 'UserId',
-        as: 'user'
       })
       Subscriber.belongsTo(models.Course, {
         foreignKey: 'CourseId',
-        as: 'course'
       })
     }
   }

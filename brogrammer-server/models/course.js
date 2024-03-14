@@ -6,12 +6,10 @@ module.exports = (sequelize, DataTypes) => {
   class Course extends Model {
     static associate(models) {
       Course.belongsTo(models.User, {
-        foreignKey: 'AuthorId',
-        as: 'author'
+        foreignKey: 'AuthorId'
       })
       Course.belongsTo(models.Category, {
-        foreignKey: 'CategoryId',
-        as: 'category'
+        foreignKey: 'CategoryId'
       })
     }
   }

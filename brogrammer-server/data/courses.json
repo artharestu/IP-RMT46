@@ -5,7 +5,8 @@
     "price": 100000,
     "isActive": true,
     "AuthorId": 1,
-    "CategoryId": 4
+    "CategoryId": 4,
+    "videoThumbnail": "Q2VqCG13ejA"
   },
   {
     "title": "Belajar Tailwind CSS",
@@ -13,7 +14,8 @@
     "price": 100000,
     "isActive": true,
     "AuthorId": 1,
-    "CategoryId": 3
+    "CategoryId": 3,
+    "videoThumbnail": "z3slaXqmkT0"
   },
   {
     "title": "string",
@@ -21,6 +23,7 @@
     "price": 100,
     "isActive": true,
     "AuthorId": 1,
-    "CategoryId": 1
+    "CategoryId": 1,
+    "videoThumbnail": "Q2VqCG13ejA"
   }
 ]
