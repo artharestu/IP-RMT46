@@ -3,14 +3,19 @@ import errorNotification from "../utils/errorNotification";
 import { useEffect, useState } from "react";
 import { serverRequest } from "../utils/axios";
 import Button from "./Button";
+import showToast from "../utils/toast";
 
 export default function Course() {
   const [data, setData] = useState({});
+  const [isLoadingData, setIsLoadingData] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState("unsubscribed");
+  const [tokenPayment, setTokenPayment] = useState("");
+  const [orderId, setOrderId] = useState("");
   const { id } = useParams();
 
   const getCourse = async () => {
-    setIsLoading(true);
+    setIsLoadingData(true);
     try {
       const response = await serverRequest({
         url: `/course/${id}`,
@@ -23,7 +28,7 @@ export default function Course() {
     } catch (error) {
       errorNotification(error.response.data.message);
     } finally {
-      setIsLoading(false);
+      setIsLoadingData(false);
     }
   };
   const priceToRupiah = () => {
@@ -32,13 +37,91 @@ export default function Course() {
       currency: "IDR",
     });
   };
+
+  const handleSubcribe = async () => {
+    setIsLoading(true);
+    try {
+      const response = await serverRequest({
+        url: `subscription/${id}`,
+        method: "get",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      setStatus(response.data.status);
+      setTokenPayment(response.data.tokenPayment);
+      setOrderId(response.data.orderId);
+    } catch (error) {
+      errorNotification(error.response.data.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const verifyPayment = async () => {
+    try {
+      await serverRequest({
+        url: `/verify/${orderId}`,
+        method: "patch",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      setStatus("subscribed");
+      showToast("Payment Success!");
+    } catch (error) {
+      errorNotification(error.response.data.message);
+    }
+  };
+
+  const handlePayment = async () => {
+    window.snap.pay(tokenPayment, {
+      onSuccess: function (result) {
+        verifyPayment();
+        console.log(result);
+      },
+      onPending: function (result) {
+        showToast("wating your payment!");
+        console.log(result);
+      },
+      onError: function (result) {
+        showToast("payment failed!");
+        console.log(result);
+      },
+      onClose: function () {
+        showToast("You closed the popup without finishing the payment");
+      },
+    });
+  };
+
+  const getSubcribeStatus = async () => {
+    try {
+      const response = await serverRequest({
+        url: `/subscriber/${id}`,
+        method: "get",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (!response) return;
+
+      setTokenPayment(response.data.tokenPayment);
+      setStatus(response.data.status);
+      setOrderId(response.data.orderId);
+    } catch (error) {
+      if (error.response) errorNotification(error.response.data.message);
+    }
+  };
+
   useEffect(() => {
     getCourse();
+    getSubcribeStatus();
   }, []);
 
   return (
     <>
-      {isLoading ? (
+      {isLoadingData ? (
         <h3 className="text-warning mt-5 text-center">
           <i>Loading data...</i>
         </h3>
@@ -64,13 +147,36 @@ export default function Course() {
           </p>
           <p className="text-light">
             <span className="text-warning">Total: </span>
-            {data.Video && data.Video.length} Video
+            {data.Videos && data.Videos.length} Video
           </p>
           <h5 className="text-warning mt-3">Description</h5>
           <p className="text-light">{data.description}</p>
-          <Button className="btn btn-outline-warning btn-lg w-100 mt-3">
-            Subscribe
-          </Button>
+          {status === "unsubscribed" && (
+            <Button
+              className="btn btn-outline-warning btn-lg w-100 mt-3"
+              onClick={handleSubcribe}
+              isLoading={isLoading}
+            >
+              Subscribe
+            </Button>
+          )}
+          {status === "pending" && (
+            <Button
+              className="btn btn-outline-warning btn-lg w-100 mt-3"
+              onClick={handlePayment}
+              isLoading={isLoading}
+            >
+              Payment
+            </Button>
+          )}
+          {status === "subscribed" && (
+            <button
+              className="btn btn-outline-warning btn-lg w-100 mt-3"
+              disabled={true}
+            >
+              Subscribed
+            </button>
+          )}
         </div>
       )}
     </>

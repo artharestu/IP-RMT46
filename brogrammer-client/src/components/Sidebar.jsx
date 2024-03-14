@@ -31,8 +31,8 @@ export default function Sidebar() {
         {videos &&
           videos.map((video) => (
             <li
-              className="list-group-item bg-transparent text-light"
               key={video.id}
+              className="list-group-item bg-transparent text-light"
             >
               <i className="bi bi-youtube me-2"></i>
               <NavLink
