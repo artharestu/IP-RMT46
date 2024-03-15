@@ -25,13 +25,20 @@ export default function Navbar() {
         </Link>
         <div className="flex-fill d-flex justify-content-between">
           <ul className="navbar-nav">
-            <li className="nav-item">
-              {localStorage.getItem("token") && (
-                <Link to={"/mycourses"} className="nav-link text-light">
-                  My Courses
-                </Link>
-              )}
-            </li>
+            {localStorage.getItem("token") && (
+              <>
+                <li className="nav-item">
+                  <Link to={"/mycourses"} className="nav-link text-light">
+                    My Courses
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={"/profile"} className="nav-link text-light">
+                    Profile
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
 
           <div>

@@ -8,6 +8,9 @@ import Course from "../components/Course";
 import Video from "../components/Video";
 import Profile from "../views/Profile";
 import MyCourses from "../views/MyCourses";
+import ShowProfile from "../components/ShowProfile";
+import FormProfile from "../components/FormProfile";
+import UploadImage from "../components/UploadImage";
 
 export const router = createBrowserRouter([
   {
@@ -65,6 +68,27 @@ export const router = createBrowserRouter([
         loader: () => {
           return localStorage.getItem("token") ? null : redirect("/login");
         },
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
+        loader: () => {
+          return localStorage.getItem("token") ? null : redirect("/login");
+        },
+        children: [
+          {
+            index: true,
+            element: <ShowProfile />,
+          },
+          {
+            path: "edit",
+            element: <FormProfile />,
+          },
+          {
+            path: "upload-image",
+            element: <UploadImage />,
+          },
+        ],
       },
     ],
   },

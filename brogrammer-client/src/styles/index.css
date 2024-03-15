@@ -28,6 +28,15 @@ fieldset {
   opacity: 0.75;
 }
 
+.profile-picture {
+  width: 150px;
+  height: 150px;
+}
+
+.profile-container {
+  width: 50vw;
+}
+
 @media screen and (max-width: 768px) {
   .card {
     width: 80vw;
@@ -46,5 +55,9 @@ fieldset {
 
   fieldset {
     width: 80vw;
+  }
+
+  .profile-container {
+    width: 90vw;
   }
 }
