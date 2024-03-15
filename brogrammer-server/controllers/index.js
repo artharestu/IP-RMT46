@@ -17,6 +17,7 @@ module.exports = {
   chatAI: OpenAI.chatAI,
   getCourses: Course.getCourses,
   getDetailCourse: Course.getDetailCourse,
+  getMyCourses: Course.getMyCourses,
   getCategories: Category.getCategories,
   verifyPayment: Subscribe.verifyPayment,
   addSubscriber: Subscribe.addSubscriber,

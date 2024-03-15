@@ -27,4 +27,6 @@ router.get('/video/:videoId', Controller.getVideo);
 router.put('/profile/:id', Controller.updateProfile);
 router.patch('/profile/:id', upload.single('profilePicture'), Controller.updateProfilePicture);
 
+router.get('/mycourses', Controller.getMyCourses);
+
 module.exports = router;

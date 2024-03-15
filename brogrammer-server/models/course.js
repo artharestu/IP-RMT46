@@ -14,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       Course.hasMany(models.Video, {
         foreignKey: 'CourseId'
       })
+      Course.hasMany(models.Subscriber, {
+        foreignKey: 'CourseId'
+      })
     }
   }
   Course.init({
