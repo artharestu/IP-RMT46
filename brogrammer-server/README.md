@@ -168,16 +168,17 @@ Request:
 _Query params (optional):_
 
 ```
-search="string"
-filter="integer"
-sort=ASC||DESC
-page="integer"
+authorId="integer",
+sort=ASC||DESC,
+page="integer",
+search="string",
+categoryId="integer"
 ```
 
 Example:
 
 ```
-/pub/jobs?search=hacktiv8&filter=2&sort=DESC&page=2
+/courses?search=javascript8&categoryId=2&sort=DESC&page=2&authorId=1
 ```
 
 Response:
@@ -191,12 +192,17 @@ _Response (200 - OK)_
     "data":
       [
         {
+          "id":"integer",
           "title": "string",
           "description": "string",
-          "imgUrl": "string",
-          "jobType": "string",
-          "companyId": "integer",
-          "authorId": "integer"
+          "videoThumbnail": "string",
+          "price": "integer",
+          "isActive": "boolean",
+          "AuthorId": "integer",
+          "CategoryId": "integer",
+          "Category": {
+                "name": "string"
+            }
         },
         ...,
       ],
@@ -207,11 +213,11 @@ _Response (200 - OK)_
 ]
 ```
 
-## 5. DELETE /jobs/:id
+## 5. GET /course/:id
 
 Description:
 
-- Delete job by id
+- Get detail course by id
 
 Request:
 
@@ -235,7 +241,17 @@ _Response (200 - OK)_
 
 ```json
 {
-  "message": "<job_title> success to delete"
+  "id": "integer",
+  "title": "string",
+  "description": "string",
+  "videoThumbnail": "string",
+  "price": "integer",
+  "isActive": "boolean",
+  "AuthorId": "integer",
+  "CategoryId": "integer",
+  "Category": {
+    "name": "string"
+  }
 }
 ```
 
@@ -263,11 +279,11 @@ _Response (404 - Not Found)_
 }
 ```
 
-## 6. GET /companies
+## 6. GET /categories
 
 Description:
 
-- Get all companies from database
+- Get all categories from database
 
 Request:
 
@@ -286,11 +302,9 @@ _Response (200 - OK)_
 ```json
 [
   {
+    "id": "integer",
     "name": "string",
-    "companyLogo": "string",
-    "location": "string",
-    "email": "string",
-    "description": "string"
+    "description": "string",
   },
   ...,
 ]
@@ -304,7 +318,7 @@ _Response (401 - Unauthorized)_
 }
 ```
 
-## 7. POST /companies
+## 7. POST /chat
 
 Request:
 
@@ -320,11 +334,7 @@ Request:
 
 ```json
 {
-  "name": "string",
-  "companyLogo": "string",
-  "location": "string",
-  "email": "string",
-  "description": "string"
+  "message": "string"
 }
 ```
 
@@ -334,11 +344,7 @@ _Response (201 - Created)_
 
 ```json
 {
-  "name": "string",
-  "companyLogo": "string",
-  "location": "string",
-  "email": "string",
-  "description": "string"
+  "message": "string"
 }
 ```
 
@@ -350,6 +356,14 @@ _Response (401 - Unauthorized)_
 }
 ```
 
+_Response (401 - Unauthorized)_
+
+```json
+{
+  "message": "Invalid data input"
+}
+```
+
 _Response (403 - Forbidden)_
 
 ```json
@@ -358,27 +372,7 @@ _Response (403 - Forbidden)_
 }
 ```
 
-_Response (400 - Bad Request)_
-
-```json
-{
-  "name": "Name is required"
-}
-OR
-{
-  "companyLogo": "Company logo is required"
-}
-OR
-{
-  "location": "Location is required"
-}
-OR
-{
-  "description": "Description is required"
-}
-```
-
-## 8. PUT /companies/:id
+## 8. GET /subscription/:CourseId
 
 Request:
 
@@ -468,7 +462,7 @@ OR
 }
 ```
 
-## 9. GET /pub/jobs
+## 9. PATCH /verify/:orderId
 
 Description:
 
@@ -518,7 +512,7 @@ _Response (200 - OK)_
 ]
 ```
 
-## 10. GET /pub/jobs/:id
+## 10. GET /subscriber/:CourseId
 
 Description:
 
@@ -557,7 +551,7 @@ _Response (404 - Not Found)_
 }
 ```
 
-## 11. POST /add-user
+## 11. DELETE /subscriber/:CourseId
 
 Description:
 
@@ -631,7 +625,7 @@ OR
 }
 ```
 
-## 12. POST /login
+## 12. GET /video/:videoId
 
 Description:
 
@@ -678,7 +672,7 @@ _Response (401 - InvalidEmailPassword)_
 }
 ```
 
-## 13. PATCH /jobs/:id
+## 13. GET /profile
 
 Description:
 
@@ -749,6 +743,12 @@ _Response (400 - Bad Request)_
   "message": "validation errors"
 }
 ```
+
+## 14. PUT /profile
+
+## 15. PATCH /profile
+
+## 16. GET /mycourses
 
 &nbsp;
 

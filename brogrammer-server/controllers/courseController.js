@@ -10,6 +10,7 @@ const getCourses = async (req, res, next) => {
         attributes: ['name']
       }
     ],
+    attributes: ['id', 'title', 'description', 'price', 'isActive', 'AuthorId', 'CategoryId', 'videoThumbnail'],
     where: {}
   }
 
@@ -68,7 +69,6 @@ const getDetailCourse = async (req, res, next) => {
     })
     res.status(200).json(course)
   } catch (error) {
-    console.log(error)
     next(error)
   }
 }

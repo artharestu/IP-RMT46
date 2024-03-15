@@ -23,7 +23,6 @@ const chatAI = async (req, res, next) => {
     const completionText = getResponse.choices[0].message.content;
     res.status(200).json({ message: completionText });
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };
