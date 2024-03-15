@@ -21,6 +21,7 @@ router.patch('/verify/:orderId', Controller.verifyPayment);
 
 router.get('/subscription/:CourseId', Controller.addSubscriber);
 router.get('/subscriber/:CourseId', Controller.getSubscriber);
+router.delete('/subscriber/:CourseId', Controller.deleteSubscriber);
 
 router.get('/video/:videoId', Controller.getVideo);
 

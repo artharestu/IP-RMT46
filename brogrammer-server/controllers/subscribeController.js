@@ -105,8 +105,29 @@ const getSubscriber = async (req, res, next) => {
     next(error)
   }
 }
+
+const deleteSubscriber = async (req, res, next) => {
+  const UserId = req.user.id
+  const { CourseId } = req.params
+  try {
+    const subscriber = await Subscriber.findOne({
+      where: {
+        UserId,
+        CourseId
+      }
+    })
+    if (!subscriber) throw { name: 'NotFound' }
+
+    await subscriber.destroy()
+
+    res.status(200).json({ message: 'Subscriber has been deleted' })
+  } catch (error) {
+    next(error)
+  }
+}
 module.exports = {
   verifyPayment,
   addSubscriber,
-  getSubscriber
+  getSubscriber,
+  deleteSubscriber
 };

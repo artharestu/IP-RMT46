@@ -22,6 +22,7 @@ module.exports = {
   verifyPayment: Subscribe.verifyPayment,
   addSubscriber: Subscribe.addSubscriber,
   getSubscriber: Subscribe.getSubscriber,
+  deleteSubscriber: Subscribe.deleteSubscriber,
   getVideo: Video.getVideo,
   updateProfile: Profile.updateProfile,
   updateProfilePicture: Profile.updateProfilePicture

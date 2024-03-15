@@ -88,7 +88,6 @@ const getMyCourses = async (req, res, next) => {
 
     res.status(200).json(courses)
   } catch (error) {
-    console.log(error)
     next(error)
   }
 }
