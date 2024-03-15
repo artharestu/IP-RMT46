@@ -25,6 +25,7 @@ router.delete('/subscriber/:CourseId', Controller.deleteSubscriber);
 
 router.get('/video/:videoId', Controller.getVideo);
 
+router.get('/profile/:id', Controller.getProfile);
 router.put('/profile/:id', Controller.updateProfile);
 router.patch('/profile/:id', upload.single('profilePicture'), Controller.updateProfilePicture);
 

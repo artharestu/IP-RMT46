@@ -25,6 +25,7 @@ module.exports = {
   deleteSubscriber: Subscribe.deleteSubscriber,
   getVideo: Video.getVideo,
   updateProfile: Profile.updateProfile,
-  updateProfilePicture: Profile.updateProfilePicture
+  updateProfilePicture: Profile.updateProfilePicture,
+  getProfile: Profile.getProfile
 }
 

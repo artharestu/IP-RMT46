@@ -57,9 +57,26 @@ const updateProfilePicture = async (req, res, next) => {
     console.log(error)
     next(error)
   }
+}
 
+const getProfile = async (req, res, next) => {
+  const { id } = req.user
+  try {
+    const profile = await Profile.findOne({
+      where: {
+        UserId: id
+      },
+      attributes: {
+        exclude: ['createdAt', 'updatedAt']
+      }
+    })
+    res.status(200).json(profile)
+  } catch (error) {
+    next(error)
+  }
 }
 module.exports = {
   updateProfile,
-  updateProfilePicture
+  updateProfilePicture,
+  getProfile
 }
