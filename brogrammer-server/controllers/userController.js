@@ -69,7 +69,6 @@ const googleLogin = async (req, res, next) => {
 
     res.status(200).json({ access_token: token });
   } catch (error) {
-    console.log(error)
     next(error)
   }
 }

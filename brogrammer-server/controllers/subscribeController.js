@@ -59,7 +59,6 @@ const verifyPayment = async (req, res, next) => {
       message: response.data.status_message
     })
   } catch (error) {
-    console.log(error)
     next(error)
   }
 }
@@ -117,6 +116,7 @@ const deleteSubscriber = async (req, res, next) => {
       }
     })
     if (!subscriber) throw { name: 'NotFound' }
+    if (subscriber.status == 'subscribed') throw { name: 'Forbidden' }
 
     await subscriber.destroy()
 

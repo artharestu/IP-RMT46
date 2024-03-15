@@ -18,9 +18,8 @@ router.get('/categories', Controller.getCategories)
 
 router.post('/chat', Controller.chatAI);
 
-router.patch('/verify/:orderId', Controller.verifyPayment);
-
 router.get('/subscription/:CourseId', Controller.addSubscriber);
+router.patch('/verify/:orderId', Controller.verifyPayment);
 router.get('/subscriber/:CourseId', Controller.getSubscriber);
 router.delete('/subscriber/:CourseId', Controller.deleteSubscriber);
 
