@@ -64,8 +64,12 @@ const googleLogin = async (req, res, next) => {
       lastName: family_name
     })
 
-    res.status(200).json({ email, given_name, family_name })
+    const token = sign({ id: user.id });
+    if (!token) throw { name: 'Unauthorized' };
+
+    res.status(200).json({ access_token: token });
   } catch (error) {
+    console.log(error)
     next(error)
   }
 }
