@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import errorNotification from "../utils/errorNotification";
 import { serverRequest } from "../utils/axios";
 import Button from "./Button";
+import { useNavigate } from "react-router-dom";
 
 export default function ShowProfile() {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState({});
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -60,12 +62,20 @@ export default function ShowProfile() {
               {data.phoneNumber}
             </p>
           </div>
-          <Button
-            onClick={() => (window.location = "/profile/edit")}
-            className="mt-3 btn btn-outline-warning"
-          >
-            Edit Profile
-          </Button>
+          <div className="d-flex align-items-center justify-content-center">
+            <Button
+              onClick={() => navigate("/profile/upload-image")}
+              className="mt-3 btn btn-outline-success m-1"
+            >
+              Upload Image
+            </Button>
+            <Button
+              onClick={() => navigate("/profile/edit")}
+              className="mt-3 btn btn-outline-warning m-1"
+            >
+              Edit Profile
+            </Button>
+          </div>
         </div>
       )}
     </div>
