@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { serverRequest } from "../utils/axios";
 import { Link, useNavigate } from "react-router-dom";
 import errorNotification from "../utils/errorNotification";
@@ -40,6 +40,40 @@ export default function Login() {
     }
   };
 
+  const googleLogin = async (googleToken) => {
+    setIsLoading(true);
+    try {
+      const response = await serverRequest({
+        method: "post",
+        url: "/google-login",
+        data: { googleToken },
+      });
+
+      localStorage.setItem("token", response.data.access_token);
+      showToast("Login Successful..");
+      navigate("/");
+    } catch (error) {
+      errorNotification(error.response.data.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    google.accounts.id.initialize({
+      client_id:
+        "176479307085-bqd29sss2dqti79f5g854hus4ql96n1f.apps.googleusercontent.com",
+      callback: (response) => {
+        googleLogin(response.credential);
+        console.log("Encoded JWT ID token: " + response.credential);
+      },
+    });
+    google.accounts.id.renderButton(document.getElementById("buttonDiv"), {
+      theme: "outline",
+      size: "large",
+    });
+  }, []);
+
   return (
     <div className="p-5 my-3 border border-warning rounded shadow text-light w-75 mx-auto bg-dark">
       <h3 className="text-warning">Login User</h3>
@@ -74,6 +108,10 @@ export default function Login() {
       <p className="text-light text-center">
         Dont have a account? <Link to={"/register"}>Register</Link>
       </p>
+      <div className="d-flex justify-content-center flex-column align-items-center">
+        <p className="text-warning text-center">- or -</p>
+        <div id="buttonDiv"></div>
+      </div>
     </div>
   );
 }
