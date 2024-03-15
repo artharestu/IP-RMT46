@@ -36,18 +36,17 @@ export default function Video() {
     setIsLoading(true);
     setChatHistory((prevChatHistory) => [...prevChatHistory, message]);
     try {
-      // const response = await serverRequest({
-      //   url: `/chat`,
-      //   method: "post",
-      //   headers: {
-      //     Authorization: `Bearer ${localStorage.getItem("token")}`,
-      //   },
-      //   data: {
-      //     message,
-      //   },
-      // });
-      // setChatHistory((prevChatHistory) => [...prevChatHistory, response.data.message]);
-      setChatHistory((prevChatHistory) => [...prevChatHistory, "Siap bro"]);
+      const response = await serverRequest({
+        url: `/chat`,
+        method: "post",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        data: {
+          message,
+        },
+      });
+      setChatHistory((prevChatHistory) => [...prevChatHistory, response.data.message]);
       setMessage("");
     } catch (error) {
       errorNotification(error.response.data.message);
