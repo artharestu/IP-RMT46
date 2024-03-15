@@ -9,6 +9,7 @@ router.get('/', Controller.home);
 
 router.post('/register', Controller.register);
 router.post('/login', Controller.login);
+router.post('/google-login', Controller.googleLogin);
 
 router.use(authentication);
 router.get('/courses', Controller.getCourses)

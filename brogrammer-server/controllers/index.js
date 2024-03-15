@@ -14,6 +14,7 @@ module.exports = {
   home,
   register: User.register,
   login: User.login,
+  googleLogin: User.googleLogin,
   chatAI: OpenAI.chatAI,
   getCourses: Course.getCourses,
   getDetailCourse: Course.getDetailCourse,
