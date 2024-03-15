@@ -1,10 +1,11 @@
 const { Profile } = require("../models")
+const cloudinary = require("cloudinary").v2
 
 const updateProfile = async (req, res, next) => {
   const { id } = req.user
   const { firstName, lastName, bio, dateOfBirth, phoneNumber } = req.body
   try {
-    const profile = await Profile.update(
+    await Profile.update(
       {
         firstName,
         lastName,
@@ -18,7 +19,7 @@ const updateProfile = async (req, res, next) => {
         }
       }
     )
-    res.status(200).json(profile)
+    res.status(200).json({ message: 'Profile success to update' })
   } catch (error) {
     next(error)
   }
@@ -53,6 +54,7 @@ const updateProfilePicture = async (req, res, next) => {
 
     res.status(200).json({ message: `Image ${result.secure_url} success to update` })
   } catch (error) {
+    console.log(error)
     next(error)
   }
 
