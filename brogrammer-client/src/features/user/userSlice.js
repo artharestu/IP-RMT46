@@ -54,4 +54,22 @@ export const googleLogin = (googleToken, setIsLoading, navigate) => {
   }
 }
 
+export const register = (user, setIsLoading, navigate) => {
+  return async () => {
+    setIsLoading(true);
+    try {
+      await serverRequest({
+        method: "post",
+        url: "/register",
+        data: user,
+      });
+      showToast("Registration Successful..");
+      navigate("/login");
+    } catch (error) {
+      errorNotification(error.response.data.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+}
 export default userSlice.reducer
