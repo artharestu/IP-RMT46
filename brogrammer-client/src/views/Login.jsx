@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import { serverRequest } from "../utils/axios";
 import { Link, useNavigate } from "react-router-dom";
-import errorNotification from "../utils/errorNotification";
 import Button from "../components/Button";
-import showToast from "../utils/toast";
+import { useDispatch } from "react-redux";
+import { login, googleLogin } from "../features/user/userSlice";
 
 export default function Login() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
-
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -22,41 +21,9 @@ export default function Login() {
     }));
   };
 
-  const handleLogin = async () => {
-    setIsLoading(true);
-    try {
-      const response = await serverRequest({
-        method: "post",
-        url: "/login",
-        data: user,
-      });
-      localStorage.setItem("token", response.data.access_token);
-      showToast("Login Successful..");
-      navigate("/");
-    } catch (error) {
-      errorNotification(error.response.data.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const googleLogin = async (googleToken) => {
-    setIsLoading(true);
-    try {
-      const response = await serverRequest({
-        method: "post",
-        url: "/google-login",
-        data: { googleToken },
-      });
-
-      localStorage.setItem("token", response.data.access_token);
-      showToast("Login Successful..");
-      navigate("/");
-    } catch (error) {
-      errorNotification(error.response.data.message);
-    } finally {
-      setIsLoading(false);
-    }
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(login(user, setIsLoading, navigate));
   };
 
   useEffect(() => {
@@ -64,8 +31,7 @@ export default function Login() {
       client_id:
         "176479307085-bqd29sss2dqti79f5g854hus4ql96n1f.apps.googleusercontent.com",
       callback: (response) => {
-        googleLogin(response.credential);
-        console.log("Encoded JWT ID token: " + response.credential);
+        dispatch(googleLogin(response.credential, setIsLoading, navigate));
       },
     });
     google.accounts.id.renderButton(document.getElementById("buttonDiv"), {
@@ -78,33 +44,34 @@ export default function Login() {
     <div className="p-5 my-3 border border-warning rounded shadow text-light w-75 mx-auto bg-dark">
       <h3 className="text-warning">Login User</h3>
       <p>Login to your account</p>
-      <div className="mb-3">
-        <label className="form-label">Email:</label>
-        <input
-          type="email"
-          className="form-control"
-          id="email"
-          value={user.email}
-          onChange={handleOnChange}
-        />
-      </div>
-      <div className="mb-3">
-        <label className="form-label">Password:</label>
-        <input
-          type="password"
-          className="form-control"
-          id="password"
-          value={user.password}
-          onChange={handleOnChange}
-        />
-      </div>
-      <Button
-        className="btn btn-warning w-100 my-3 btn-lg"
-        onClick={handleLogin}
-        isLoading={isLoading}
-      >
-        Login
-      </Button>
+      <form onSubmit={handleOnSubmit}>
+        <div className="mb-3">
+          <label className="form-label">Email:</label>
+          <input
+            type="email"
+            className="form-control"
+            id="email"
+            value={user.email}
+            onChange={handleOnChange}
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Password:</label>
+          <input
+            type="password"
+            className="form-control"
+            id="password"
+            value={user.password}
+            onChange={handleOnChange}
+          />
+        </div>
+        <Button
+          className="btn btn-warning w-100 my-3 btn-lg"
+          isLoading={isLoading}
+        >
+          Login
+        </Button>
+      </form>
       <p className="text-light text-center">
         Dont have a account? <Link to={"/register"}>Register</Link>
       </p>
