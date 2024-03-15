@@ -82,6 +82,9 @@ const getMyCourses = async (req, res, next) => {
           where: {
             UserId: id
           }
+        },
+        {
+          model: Category,
         }
       ]
     })
