@@ -1,44 +1,16 @@
 import { useEffect, useState } from "react";
-import { serverRequest } from "../utils/axios";
 import Cards from "../components/Cards";
 import Filter from "../components/Filter";
-import errorNotification from "../utils/errorNotification";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function HomePage() {
-  const [data, setData] = useState([]);
   const [isNewest, setIsNewest] = useState(true);
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [categoryId, setCategoryId] = useState("");
 
-  const fetchData = async () => {
-    const requestConfig = {
-      params: {},
-    };
-
-    isNewest
-      ? (requestConfig.params.sort = "DESC")
-      : (requestConfig.params.sort = "ASC");
-    if (search) requestConfig.params.search = search;
-    if (categoryId) requestConfig.params.categoryId = categoryId;
-
-    try {
-      const response = await serverRequest({
-        url: "/courses",
-        method: "get",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        ...requestConfig,
-      });
-
-      setData(response.data.data);
-    } catch (error) {
-      errorNotification(error.response.data.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const dispatch = useDispatch();
+  const courses = useSelector((state) => state.courses.list);
 
   const handleSort = () => {
     setIsNewest((prevIsAscending) => !prevIsAscending);
@@ -59,7 +31,7 @@ export default function HomePage() {
   };
 
   useEffect(() => {
-    fetchData();
+    dispatch(fetchCourses(isNewest, search, categoryId, setIsLoading));
   }, [isNewest, search, categoryId]);
 
   return (
@@ -83,7 +55,7 @@ export default function HomePage() {
             </h1>
           ) : (
             <>
-              <Cards data={data} />
+              <Cards data={courses} />
             </>
           )}
         </div>
