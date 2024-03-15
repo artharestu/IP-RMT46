@@ -1,32 +1,16 @@
 import { useEffect, useState } from "react";
 import Cards from "../components/Cards";
-import { serverRequest } from "../utils/axios";
-import errorNotification from "../utils/errorNotification";
+import { fetchMyCourses } from "../features/course/courseSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function MyCourses() {
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState([]);
-  const fetchData = async () => {
-    setIsLoading(true);
-    try {
-      const response = await serverRequest({
-        url: "/mycourses",
-        method: "get",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      console.log(response);
-      setData(response.data);
-    } catch (error) {
-      errorNotification(error.response.data.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+
+  const dispatch = useDispatch();
+  const myCourses = useSelector((state) => state.courses.myCourses);
 
   useEffect(() => {
-    fetchData();
+    dispatch(fetchMyCourses(setIsLoading));
   }, []);
 
   return (
@@ -37,7 +21,7 @@ export default function MyCourses() {
         </h1>
       ) : (
         <>
-          <Cards data={data} />
+          <Cards data={myCourses} />
         </>
       )}
     </div>

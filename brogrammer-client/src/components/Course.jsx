@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import { serverRequest } from "../utils/axios";
 import Button from "./Button";
 import showToast from "../utils/toast";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCourseDetail } from "../features/course/courseSlice";
 
 export default function Course() {
-  const [data, setData] = useState({});
   const [isLoadingData, setIsLoadingData] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState("unsubscribed");
@@ -14,25 +15,11 @@ export default function Course() {
   const [orderId, setOrderId] = useState("");
   const { id } = useParams();
 
-  const getCourse = async () => {
-    setIsLoadingData(true);
-    try {
-      const response = await serverRequest({
-        url: `/course/${id}`,
-        method: "get",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      setData(response.data);
-    } catch (error) {
-      errorNotification(error.response.data.message);
-    } finally {
-      setIsLoadingData(false);
-    }
-  };
+  const dispatch = useDispatch();
+  const course = useSelector((state) => state.courses.detail);
+
   const priceToRupiah = () => {
-    return data.price.toLocaleString("id-ID", {
+    return course.price.toLocaleString("id-ID", {
       style: "currency",
       currency: "IDR",
     });
@@ -115,7 +102,7 @@ export default function Course() {
   };
 
   useEffect(() => {
-    getCourse();
+    dispatch(fetchCourseDetail(id, setIsLoadingData));
     getSubcribeStatus();
   }, []);
 
@@ -127,30 +114,34 @@ export default function Course() {
         </h3>
       ) : (
         <div className="border border-warning rounded p-3 my-3 mx-auto shadow py-5 bg-dark opacity-90">
-          <h3 className="text-warning">{data.title}</h3>
-          <img
-            src={
-              data.videoThumbnail
-                ? `https://img.youtube.com/vi/${data.videoThumbnail}/mqdefault.jpg`
-                : ""
-            }
-            alt={data.title}
-            className="img-fluid"
-          />
-          <p className="text-light mt-3">
-            <span className="text-warning">Kategori: </span>
-            {data.Category && data.Category.name}
-          </p>
-          <p className="text-light">
-            <span className="text-warning">Harga: </span>
-            {data.price && priceToRupiah()}
-          </p>
-          <p className="text-light">
-            <span className="text-warning">Total: </span>
-            {data.Videos && data.Videos.length} Video
-          </p>
+          <h3 className="text-warning">{course.title}</h3>
+          <div className="d-flex align-items-center justify-content-start gap-3">
+            <img
+              src={
+                course.videoThumbnail
+                  ? `https://img.youtube.com/vi/${course.videoThumbnail}/mqdefault.jpg`
+                  : ""
+              }
+              alt={course.title}
+              className="img-fluid w-50"
+            />
+            <div>
+              <p className="text-light mt-3">
+                <span className="text-warning">Kategori: </span>
+                {course.Category && course.Category.name}
+              </p>
+              <p className="text-light">
+                <span className="text-warning">Harga: </span>
+                {course.price && priceToRupiah()}
+              </p>
+              <p className="text-light">
+                <span className="text-warning">Total: </span>
+                {course.Videos && course.Videos.length} Video
+              </p>
+            </div>
+          </div>
           <h5 className="text-warning mt-3">Description</h5>
-          <p className="text-light">{data.description}</p>
+          <p className="text-light">{course.description}</p>
           {status === "unsubscribed" && (
             <Button
               className="btn btn-outline-warning btn-lg w-100 mt-3"

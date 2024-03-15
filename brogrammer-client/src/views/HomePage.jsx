@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Cards from "../components/Cards";
 import Filter from "../components/Filter";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchCourses } from "../features/course/courseSlice";
 
 export default function HomePage() {
   const [isNewest, setIsNewest] = useState(true);
