@@ -1,6 +1,6 @@
 const { Category } = require("../models")
 
-const getCategories = async (res, next) => {
+const getCategories = async (req, res, next) => {
   try {
     const categories = await Category.findAll({
       attributes: ['id', 'name', 'description']

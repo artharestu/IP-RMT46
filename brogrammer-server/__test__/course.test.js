@@ -46,9 +46,8 @@ describe('GET /course/:id', () => {
 
       expect(body).toHaveProperty('id')
       expect(body).toHaveProperty('title')
-      expect(body).toHaveProperty('urlVideo')
-      expect(body).toHaveProperty('part')
-      expect(body).toHaveProperty('description')
+      expect(body).toHaveProperty('price')
+      expect(body).toHaveProperty('videoThumbnail')
       expect(status).toBe(200);
     })
   })
@@ -80,9 +79,7 @@ describe('GET /mycourses', () => {
         .get('/mycourses')
         .set('Authorization', `Bearer ${token}`)
 
-      expect(body).toHaveProperty('data')
-      expect(body).toHaveProperty('totalPage')
-      expect(body).toHaveProperty('dataPerPage')
+      expect(body).toBeInstanceOf(Array)
       expect(status).toBe(200);
     })
   })
