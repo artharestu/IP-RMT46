@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import errorNotification from "../utils/errorNotification";
 import { useEffect, useState } from "react";
 import { serverRequest } from "../utils/axios";
@@ -6,7 +6,10 @@ import Button from "./Button";
 import showToast from "../utils/toast";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCourseDetail } from "../features/course/courseSlice";
-import { fetchSubscribers } from "../features/subscriber/subscriberSlice";
+import {
+  fetchSubscribers,
+  setStatus,
+} from "../features/subscriber/subscriberSlice";
 
 export default function Course() {
   const [isLoadingData, setIsLoadingData] = useState(false);
@@ -14,6 +17,7 @@ export default function Course() {
   const [tokenPayment, setTokenPayment] = useState("");
   const [orderId, setOrderId] = useState("");
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const course = useSelector((state) => state.courses.detail);
@@ -83,6 +87,23 @@ export default function Course() {
     });
   };
 
+  const handleUnsubcribe = async () => {
+    try {
+      await serverRequest({
+        url: `/subscriber/${id}`,
+        method: "delete",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      setStatus("unsubscribed");
+      showToast("Unsubcribe Success!");
+      navigate(`/detail-course/${id}`);
+    } catch (error) {
+      errorNotification(error.response.data.message);
+    }
+  };
+
   useEffect(() => {
     dispatch(fetchCourseDetail(id, setIsLoadingData));
     dispatch(fetchSubscribers(id, setIsLoadingData));
@@ -138,13 +159,22 @@ export default function Course() {
             </Button>
           )}
           {status === "pending" && (
-            <Button
-              className="btn btn-outline-warning btn-lg w-100 mt-3"
-              onClick={handlePayment}
-              isLoading={isLoading}
-            >
-              Payment
-            </Button>
+            <>
+              <Button
+                className="btn btn-outline-warning btn-lg w-100 mt-3"
+                onClick={handlePayment}
+                isLoading={isLoading}
+              >
+                Payment
+              </Button>
+              <Button
+                className="btn btn-outline-danger btn-lg w-100 mt-3"
+                onClick={handleUnsubcribe}
+                isLoading={isLoading}
+              >
+                Cancel
+              </Button>
+            </>
           )}
           {status === "subscribed" && (
             <button
