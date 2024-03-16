@@ -24,6 +24,10 @@ body {
   height: 50px;
 }
 
+.auth {
+  width: 75vw;
+}
+
 fieldset {
   opacity: 0.75;
 }
@@ -64,5 +68,9 @@ fieldset {
 
   .profile-container .upload-form {
     width: 90vw;
+  }
+
+  .auth {
+    width: 95vw;
   }
 }

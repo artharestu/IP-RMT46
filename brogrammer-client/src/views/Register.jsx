@@ -27,7 +27,7 @@ export default function Register() {
   };
 
   return (
-    <div className="p-5 my-3 border border-warning rounded shadow text-light w-75 mx-auto bg-dark">
+    <div className="card p-5 my-3 border border-warning rounded shadow text-light mx-auto bg-dark auth">
       <h3 className="text-warning">Register User</h3>
       <p>Register a new user</p>
       <form onSubmit={handleOnSubmit}>
@@ -39,6 +39,7 @@ export default function Register() {
             id="email"
             value={user.email}
             onChange={handleOnChange}
+            required
           />
         </div>
         <div className="mb-3">
@@ -49,6 +50,7 @@ export default function Register() {
             id="password"
             value={user.password}
             onChange={handleOnChange}
+            required
           />
         </div>
         <Button
