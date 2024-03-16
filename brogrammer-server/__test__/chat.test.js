@@ -3,6 +3,8 @@ const request = require('supertest');
 const { sign } = require('../helpers/jwt');
 const { bulkInsert, bulkDelete } = require('../helpers/tester');
 
+let token = ""
+
 describe('POST /chat', () => {
   describe('Success', () => {
     test('should return status 200, when token is valid', async () => {

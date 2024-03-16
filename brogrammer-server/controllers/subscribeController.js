@@ -4,35 +4,31 @@ const { v4: uuidv4 } = require('uuid');
 const { Course, Subscriber } = require('../models')
 
 const initPayment = async (price, email) => {
-  try {
-    const snap = new midtransClient.Snap({
-      isProduction: false,
-      serverKey: process.env.MIDTRANS_SERVER_KEY,
-      clientKey: process.env.MIDTRANS_CLIENT_KEY
-    });
-    const orderId = uuidv4();
+  const snap = new midtransClient.Snap({
+    isProduction: false,
+    serverKey: process.env.MIDTRANS_SERVER_KEY,
+    clientKey: process.env.MIDTRANS_CLIENT_KEY
+  });
+  const orderId = uuidv4();
 
-    const parameter = {
-      "transaction_details": {
-        "order_id": orderId,
-        "gross_amount": price
-      },
-      "credit_card": {
-        "secure": true
-      },
-      "customer_details": {
-        "email": email
-      }
-    };
-
-    const transaction = await snap.createTransaction(parameter)
-
-    return {
-      tokenPayment: transaction.token,
-      orderId: orderId
+  const parameter = {
+    "transaction_details": {
+      "order_id": orderId,
+      "gross_amount": price
+    },
+    "credit_card": {
+      "secure": true
+    },
+    "customer_details": {
+      "email": email
     }
-  } catch (error) {
-    next(error)
+  };
+
+  const transaction = await snap.createTransaction(parameter)
+
+  return {
+    tokenPayment: transaction.token,
+    orderId: orderId
   }
 }
 

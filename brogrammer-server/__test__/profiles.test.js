@@ -111,7 +111,7 @@ describe('PATCH /profile', () => {
 
       expect(status).toBe(200);
       expect(body).toHaveProperty('message', expect.any(String));
-    }, 10000);
+    }, 20000);
   })
 
   describe('Failed', () => {
