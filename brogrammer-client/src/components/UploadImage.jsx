@@ -1,46 +1,25 @@
-import { serverRequest } from "../utils/axios";
-import showToast from "../utils/toast";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import errorNotification from "../utils/errorNotification";
+import { useDispatch } from "react-redux";
+import { uploadProfilePicture } from "../features/profile/profileSlice";
 
 export default function FormProfile() {
   const [file, setFile] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const navigation = useNavigate();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleSubmit = async (event) => {
+  const handleOnSubmit = async (event) => {
     event.preventDefault();
-    setIsLoading(true);
-
-    const formData = new FormData();
-    formData.append("profilePicture", file);
-
-    try {
-      await serverRequest({
-        url: `/profile`,
-        method: "patch",
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-        data: formData,
-      });
-
-      showToast("Image updated successfully.");
-      navigation("/profile");
-    } catch (error) {
-      console.log(error);
-      errorNotification(error.response.data.message);
-    } finally {
-      setIsLoading(false);
-    }
+    dispatch(uploadProfilePicture(file, setIsLoading, navigate));
   };
+
   return (
     <form
       className="p-5 my-3 border border-warning rounded shadow upload-form"
       encType="multipart/form-data"
+      onSubmit={handleOnSubmit}
     >
       <h2 className="text-warning">Profile</h2>
       <p>Update your profile picture here</p>
@@ -56,7 +35,6 @@ export default function FormProfile() {
       </div>
       <Button
         className="btn btn-warning w-100 my-3 btn-lg"
-        onClick={handleSubmit}
         isLoading={isLoading}
       >
         Update

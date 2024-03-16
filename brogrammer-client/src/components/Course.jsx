@@ -6,17 +6,19 @@ import Button from "./Button";
 import showToast from "../utils/toast";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCourseDetail } from "../features/course/courseSlice";
+import { fetchSubscribers } from "../features/subscriber/subscriberSlice";
 
 export default function Course() {
   const [isLoadingData, setIsLoadingData] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [status, setStatus] = useState("unsubscribed");
   const [tokenPayment, setTokenPayment] = useState("");
   const [orderId, setOrderId] = useState("");
   const { id } = useParams();
 
   const dispatch = useDispatch();
   const course = useSelector((state) => state.courses.detail);
+  const subscriber = useSelector((state) => state.subscribers.detail);
+  const status = useSelector((state) => state.subscribers.status);
 
   const priceToRupiah = () => {
     return course.price.toLocaleString("id-ID", {
@@ -81,29 +83,13 @@ export default function Course() {
     });
   };
 
-  const getSubcribeStatus = async () => {
-    try {
-      const response = await serverRequest({
-        url: `/subscriber/${id}`,
-        method: "get",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-
-      if (!response) return;
-
-      setTokenPayment(response.data.tokenPayment);
-      setStatus(response.data.status);
-      setOrderId(response.data.orderId);
-    } catch (error) {
-      if (error.response) errorNotification(error.response.data.message);
-    }
-  };
-
   useEffect(() => {
     dispatch(fetchCourseDetail(id, setIsLoadingData));
-    getSubcribeStatus();
+    dispatch(fetchSubscribers(id, setIsLoadingData));
+    if (JSON.stringify(subscriber) !== "{}") {
+      setTokenPayment(subscriber.tokenPayment);
+      setOrderId(subscriber.orderId);
+    }
   }, []);
 
   return (

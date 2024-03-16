@@ -3,10 +3,11 @@ import { useParams } from "react-router-dom";
 import errorNotification from "../utils/errorNotification";
 import { serverRequest } from "../utils/axios";
 import Button from "./Button";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchVideos } from "../features/video/videoSlice";
 
 export default function Video() {
   const { videoId } = useParams();
-  const [video, setVideo] = useState({});
   const [isLoadingData, setIsLoadingData] = useState(false);
   const [chatHistory, setChatHistory] = useState([
     "Hallo, saya adalah asisten anda dalam belajar course ini. Silahkan tanyakan apa saja yang anda butuhkan.",
@@ -14,23 +15,8 @@ export default function Video() {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const getVideo = async () => {
-    setIsLoadingData(true);
-    try {
-      const response = await serverRequest({
-        url: `/video/${videoId}`,
-        method: "get",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      setVideo(response.data);
-    } catch (error) {
-      errorNotification(error.response.data.message);
-    } finally {
-      setIsLoadingData(false);
-    }
-  };
+  const dispatch = useDispatch();
+  const video = useSelector((state) => state.videos.detail);
 
   const handleChat = async () => {
     setIsLoading(true);
@@ -46,7 +32,10 @@ export default function Video() {
           message,
         },
       });
-      setChatHistory((prevChatHistory) => [...prevChatHistory, response.data.message]);
+      setChatHistory((prevChatHistory) => [
+        ...prevChatHistory,
+        response.data.message,
+      ]);
       setMessage("");
     } catch (error) {
       errorNotification(error.response.data.message);
@@ -61,8 +50,8 @@ export default function Video() {
   };
 
   useEffect(() => {
-    getVideo();
-  }, []);
+    dispatch(fetchVideos(videoId, setIsLoadingData));
+  }, [videoId]);
 
   return (
     <>

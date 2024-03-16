@@ -63,5 +63,31 @@ export const updateProfile = (form, setIsLoading, navigate) => {
   }
 }
 
+export const uploadProfilePicture = (file, setIsLoading, navigate) => {
+  return async () => {
+    setIsLoading(true);
+    const formData = new FormData();
+    formData.append("profilePicture", file);
+
+    try {
+      await serverRequest({
+        url: `/profile`,
+        method: "patch",
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        data: formData,
+      });
+
+      showToast("Image updated successfully.");
+      navigate("/profile");
+    } catch (error) {
+      errorNotification(error.response.data.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+}
 export const { setDetail } = profileSlice.actions
 export default profileSlice.reducer

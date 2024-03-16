@@ -13,9 +13,7 @@ export default function FormProfile() {
     phoneNumber: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-
   const dispatch = useDispatch();
-  // const profile = useSelector((state) => state.profiles.detail);
 
   const handleChange = (event) => {
     const { id, value } = event.target;

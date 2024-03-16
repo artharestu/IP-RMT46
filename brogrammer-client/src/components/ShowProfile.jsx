@@ -41,7 +41,7 @@ export default function ShowProfile() {
               {dateFormatted(profile.dateOfBirth)}
             </p>
             <p className="text-light">
-              <span className="text-warning">Phone Number: </span>+{" "}
+              <span className="text-warning">Phone Number: </span>
               {profile.phoneNumber}
             </p>
           </div>
