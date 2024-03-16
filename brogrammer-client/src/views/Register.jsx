@@ -27,7 +27,7 @@ export default function Register() {
   };
 
   return (
-    <div className="card p-5 my-3 border border-warning rounded shadow text-light mx-auto bg-dark auth">
+    <div className="card p-5 my-3 border border-warning rounded shadow text-light mx-auto bg-dark big-card">
       <h3 className="text-warning">Register User</h3>
       <p>Register a new user</p>
       <form onSubmit={handleOnSubmit}>

@@ -24,22 +24,22 @@ export default function Navbar() {
           </div>
         </Link>
         <div className="flex-fill d-flex justify-content-between">
-          <ul className="navbar-nav">
+          <div className="d-flex align-items-center gap-3">
             {localStorage.getItem("token") && (
               <>
-                <li className="nav-item">
+                <div className="nav-item">
                   <Link to={"/mycourses"} className="nav-link text-light">
                     My Courses
                   </Link>
-                </li>
-                <li className="nav-item">
+                </div>
+                <div className="nav-item">
                   <Link to={"/profile"} className="nav-link text-light">
                     Profile
                   </Link>
-                </li>
+                </div>
               </>
             )}
-          </ul>
+          </div>
 
           <div>
             {localStorage.getItem("token") ? (

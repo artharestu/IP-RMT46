@@ -18,7 +18,7 @@ export default function Sidebar() {
   }, []);
 
   return (
-    <div className="border border-warning rounded p-3 my-3 mx-auto shadow py-5">
+    <div className="card border border-warning rounded p-3 my-3 mx-auto py-5 bg-dark opacity-90">
       <h4 className="text-warning">Learning Path</h4>
       {isLoadingData ? (
         <p className="text-warning mt-5 text-center">

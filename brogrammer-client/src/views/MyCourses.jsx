@@ -20,7 +20,7 @@ export default function MyCourses() {
           <i>Loading data...</i>
         </h1>
       ) : myCourses.length === 0 ? (
-        <div className="bg-dark rounded mt-5 p-3 border border-warning">
+        <div className="card bg-dark rounded mt-5 p-3 border border-warning big-card">
           <h1 className="text-warning text-center">
             <i>You don&lsquo;t have any courses yet!</i>
           </h1>

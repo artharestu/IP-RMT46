@@ -24,7 +24,7 @@ body {
   height: 50px;
 }
 
-.auth {
+.big-card {
   width: 75vw;
 }
 
@@ -46,9 +46,21 @@ fieldset {
   margin: 0 auto;
 }
 
+.opacity-90 {
+  opacity: 0.9;
+}
+
+.flex-responsive {
+  flex-direction: row;
+}
+
+.img-course {
+  width: 100%;
+}
+
 @media screen and (max-width: 768px) {
   .card {
-    width: 80vw;
+    width: 90vw;
     margin: 0 auto;
     opacity: 0.75;
     text-align: center;
@@ -63,14 +75,23 @@ fieldset {
   }
 
   fieldset {
-    width: 80vw;
+    width: 90vw;
   }
 
   .profile-container .upload-form {
     width: 90vw;
   }
 
-  .auth {
-    width: 95vw;
+  .big-card {
+    width: 90vw;
+  }
+
+  .flex-responsive {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .img-course {
+    width: 100%;
   }
 }

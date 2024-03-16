@@ -41,7 +41,7 @@ export default function Login() {
   }, []);
 
   return (
-    <div className="card p-5 my-3 border border-warning rounded shadow text-light mx-auto bg-dark auth">
+    <div className="card p-5 my-3 border border-warning rounded shadow text-light mx-auto bg-dark big-card">
       <h3 className="text-warning">Login User</h3>
       <p>Login to your account</p>
       <form onSubmit={handleOnSubmit}>

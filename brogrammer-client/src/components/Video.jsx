@@ -63,8 +63,8 @@ export default function Video() {
         <div className="border border-warning rounded p-3 my-3 mx-auto shadow py-5 bg-dark opacity-90">
           <h4 className="text-warning mb-3">{video.title}</h4>
           <iframe
+            className="w-100"
             height={"400"}
-            width={"100%"}
             src={`https://www.youtube.com/embed/${video.urlVideo}`}
           ></iframe>
           <p className="text-light mt-3">{video.description}</p>
