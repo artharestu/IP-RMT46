@@ -51,7 +51,7 @@ export default function Video() {
 
   useEffect(() => {
     dispatch(fetchVideos(videoId, setIsLoadingData));
-  }, [videoId]);
+  }, []);
 
   return (
     <>
