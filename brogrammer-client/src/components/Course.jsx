@@ -99,33 +99,33 @@ export default function Course() {
           <i>Loading data...</i>
         </h3>
       ) : (
-        <div className="border border-warning rounded p-3 my-3 mx-auto shadow py-5 bg-dark opacity-90">
+        <div className="border border-warning rounded p-3 my-3 mx-auto shadow py-5 bg-dark opacity-90 box-sizing-border-box">
           <h3 className="text-warning">{course.title}</h3>
-          <div className="d-flex align-items-center justify-content-start gap-3">
-            <img
-              src={
-                course.videoThumbnail
-                  ? `https://img.youtube.com/vi/${course.videoThumbnail}/mqdefault.jpg`
-                  : ""
-              }
-              alt={course.title}
-              className="img-fluid w-50"
-            />
-            <div>
-              <p className="text-light mt-3">
-                <span className="text-warning">Kategori: </span>
-                {course.Category && course.Category.name}
-              </p>
-              <p className="text-light">
-                <span className="text-warning">Harga: </span>
-                {course.price && priceToRupiah()}
-              </p>
-              <p className="text-light">
-                <span className="text-warning">Total: </span>
-                {course.Videos && course.Videos.length} Video
-              </p>
-            </div>
+
+          <img
+            src={
+              course.videoThumbnail
+                ? `https://img.youtube.com/vi/${course.videoThumbnail}/mqdefault.jpg`
+                : ""
+            }
+            alt={course.title}
+            className="img-fluid img-course"
+          />
+          <div>
+            <h5 className="text-light mt-3">
+              <span className="text-warning">Kategori: </span>
+              {course.Category && course.Category.name}
+            </h5>
+            <h5 className="text-light">
+              <span className="text-warning">Harga: </span>
+              {course.price && priceToRupiah()}
+            </h5>
+            <h5 className="text-light">
+              <span className="text-warning">Total: </span>
+              {course.Videos && course.Videos.length} Video
+            </h5>
           </div>
+
           <h5 className="text-warning mt-3">Description</h5>
           <p className="text-light">{course.description}</p>
           {status === "unsubscribed" && (

@@ -20,7 +20,7 @@ export default function Filter({
   }, []);
 
   return (
-    <fieldset className="border border-warning rounded p-3 my-3 mx-auto shadow text-start">
+    <fieldset className="border border-warning rounded p-3 my-3 mx-auto shadow text-start bg-dark">
       <legend className="text-warning">Filter</legend>
       <input
         type="text"

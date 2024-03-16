@@ -27,10 +27,6 @@ module.exports = (error, req, res, next) => {
       status = 401;
       message = 'Unauthorized access';
       break;
-    case 'Forbidden':
-      status = 403;
-      message = 'Forbidden access';
-      break;
     case 'NotFound':
       status = 404;
       message = 'Data not found';

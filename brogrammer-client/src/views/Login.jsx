@@ -41,7 +41,7 @@ export default function Login() {
   }, []);
 
   return (
-    <div className="p-5 my-3 border border-warning rounded shadow text-light w-75 mx-auto bg-dark">
+    <div className="card p-5 my-3 border border-warning rounded shadow text-light mx-auto bg-dark big-card">
       <h3 className="text-warning">Login User</h3>
       <p>Login to your account</p>
       <form onSubmit={handleOnSubmit}>
@@ -53,6 +53,7 @@ export default function Login() {
             id="email"
             value={form.email}
             onChange={handleOnChange}
+            required
           />
         </div>
         <div className="mb-3">
@@ -63,6 +64,7 @@ export default function Login() {
             id="password"
             value={form.password}
             onChange={handleOnChange}
+            required
           />
         </div>
         <Button

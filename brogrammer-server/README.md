@@ -1,5 +1,9 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=14029415&assignment_repo_type=AssignmentRepo)
 
+# Website
+
+https://brogrammer-ecourse.web.app/
+
 # Brogrammer E-Learning API Doc (Server Side)
 
 ## Endpoints :
@@ -28,7 +32,7 @@ List of available endpoints:
 
 Description:
 
-- Create a user
+- Create a new user
 
 Request:
 
@@ -49,14 +53,6 @@ _Response (201 - Created)_
 {
   "email": "string",
   "password": "string"
-}
-```
-
-_Response (401 - Unauthorized)_
-
-```json
-{
-  "message": "Unauthorized access"
 }
 ```
 
@@ -101,18 +97,6 @@ _Response (200 - OK)_
 }
 ```
 
-_Response (400 - Bad Request)_
-
-```json
-{
-  "message": "Email is required"
-}
-OR
-{
-  "message": "Password is required"
-}
-```
-
 _Response (401 - InvalidEmailPassword)_
 
 ```json
@@ -144,6 +128,14 @@ _Response (200 - OK)_
 ```json
 {
   "access_token": "string"
+}
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+  "message": "Unauthorized access"
 }
 ```
 
@@ -213,6 +205,14 @@ _Response (200 - OK)_
 ]
 ```
 
+_Response (401 - Unauthorized)_
+
+```json
+{
+  "message": "Unauthorized access"
+}
+```
+
 ## 5. GET /course/:id
 
 Description:
@@ -263,19 +263,11 @@ _Response (401 - Unauthorized)_
 }
 ```
 
-_Response (403 - Forbidden)_
-
-```json
-{
-  "message": "Forbidden access"
-}
-```
-
 _Response (404 - Not Found)_
 
 ```json
 {
-  "message": "error not found"
+  "message": "Data not found"
 }
 ```
 
@@ -340,7 +332,7 @@ Request:
 
 Response:
 
-_Response (201 - Created)_
+_Response (200 - OK)_
 
 ```json
 {
@@ -364,15 +356,11 @@ _Response (401 - Unauthorized)_
 }
 ```
 
-_Response (403 - Forbidden)_
-
-```json
-{
-  "message": "Forbidden access"
-}
-```
-
 ## 8. GET /subscription/:CourseId
+
+Description:
+
+- Add data to the subscribers table with the status "pending" (awaiting payment) for the specified CourseId.
 
 Request:
 
@@ -388,19 +376,7 @@ Request:
 
 ```json
 {
-  "id": "integer (required)"
-}
-```
-
-- body:
-
-```json
-{
-  "name": "string",
-  "companyLogo": "string",
-  "location": "string",
-  "email": "string",
-  "description": "string"
+  "CourseId": "integer (required)"
 }
 ```
 
@@ -410,11 +386,14 @@ _Response (200 - OK)_
 
 ```json
 {
-  "name": "string",
-  "companyLogo": "string",
-  "location": "string",
-  "email": "string",
-  "description": "string"
+  "id": "integer",
+  "UserId": "integer",
+  "CourseId": "integer",
+  "orderId": "string",
+  "tokenPayment": "string",
+  "status": "pending",
+  "createdAt": "date",
+  "updatedAt": "date"
 }
 ```
 
@@ -426,39 +405,11 @@ _Response (401 - Unauthorized)_
 }
 ```
 
-_Response (403 - Forbidden)_
-
-```json
-{
-  "message": "Forbidden access"
-}
-```
-
 _Response (404 - Not Found)_
 
 ```json
 {
-  "message": "error not found"
-}
-```
-
-_Response (400 - Bad Request)_
-
-```json
-{
-  "name": "Name is required"
-}
-OR
-{
-  "companyLogo": "Company logo is required"
-}
-OR
-{
-  "location": "Location is required"
-}
-OR
-{
-  "description": "Description is required"
+  "message": "Data not found"
 }
 ```
 
@@ -466,96 +417,7 @@ OR
 
 Description:
 
-- Get all job from database (public)
-
-Request:
-
-_Query params (optional):_
-
-```
-search="string"
-filter="integer"
-sort=ASC||DESC
-page="integer"
-```
-
-Example:
-
-```
-/pub/jobs?search=hacktiv8&filter=2&sort=DESC&page=2
-```
-
-Response:
-
-_Response (200 - OK)_
-
-```json
-[
-  {
-    "page": "integer",
-    "data":
-      [
-        {
-          "title": "string",
-          "description": "string",
-          "imgUrl": "string",
-          "jobType": "string",
-          "companyId": "integer",
-          "authorId": "integer"
-        },
-        ...,
-      ],
-    "totalData": "integer",
-    "totalPage": "integer",
-    "dataPerPage": "integer",
-  }
-]
-```
-
-## 10. GET /subscriber/:CourseId
-
-Description:
-
-- Get job by id (public)
-
-Request:
-
-- params:
-
-```json
-{
-  "id": "integer (required)"
-}
-```
-
-Response:
-
-_Response (200 - OK)_
-
-```json
-{
-  "title": "string",
-  "description": "string",
-  "imgUrl": "string",
-  "jobType": "string",
-  "companyId": "integer",
-  "authorId": "integer"
-}
-```
-
-_Response (404 - Not Found)_
-
-```json
-{
-  "message": "error not found"
-}
-```
-
-## 11. DELETE /subscriber/:CourseId
-
-Description:
-
-- User register
+- Verify the payment for the specified orderId. If the payment is valid, update the status to "subscribed".
 
 Request:
 
@@ -567,29 +429,21 @@ Request:
 }
 ```
 
-- body:
+- params:
 
 ```json
 {
-  "username": "string",
-  "email": "string",
-  "password": "string",
-  "phoneNumber": "string",
-  "address": "string"
+  "CourseId": "integer (required)"
 }
 ```
 
 Response:
-
-_Response (201 - Created)_
+_Response (200 - OK)_
 
 ```json
 {
-  "id": "integer",
-  "username": "string",
-  "email": "string",
-  "phoneNumber": "string",
-  "address": "string"
+  "status": "string",
+  "message": "string"
 }
 ```
 
@@ -601,44 +455,27 @@ _Response (401 - Unauthorized)_
 }
 ```
 
-_Response (400 - Bad Request)_
-
-```json
-{
-  "username": "Username is required"
-}
-OR
-{
-  "email": "Email is required"
-}
-OR
-{
-  "email": "Email is not valid"
-}
-OR
-{
-  "password": "Password is required"
-}
-OR
-{
-  "password": "Password must be between 5 and 20 characters"
-}
-```
-
-## 12. GET /video/:videoId
+## 10. GET /subscriber/:CourseId
 
 Description:
 
-- User login
+- Get the subscriber data based on the specified CourseId.
 
 Request:
 
-- body:
+- headers:
 
 ```json
 {
-  "username": "string",
-  "email": "string"
+  "authorization": "Bearer <access_token>"
+}
+```
+
+- params:
+
+```json
+{
+  "CourseId": "integer (required)"
 }
 ```
 
@@ -648,31 +485,197 @@ _Response (200 - OK)_
 
 ```json
 {
-  "access_token": "string"
+  "id": "integer",
+  "UserId": "integer",
+  "CourseId": "integer",
+  "orderId": "string",
+  "tokenPayment": "string",
+  "status": "pending",
+  "createdAt": "date",
+  "updatedAt": "date"
 }
 ```
 
-_Response (400 - Bad Request)_
+_Response (401 - Unauthorized)_
 
 ```json
 {
-  "message": "Email is required"
-}
-OR
-{
-  "message": "Password is required"
+  "message": "Unauthorized access"
 }
 ```
 
-_Response (401 - InvalidEmailPassword)_
+_Response (404 - Not Found)_
 
 ```json
 {
-  "message": "error invalid username or email or password"
+  "message": "Data not found"
 }
 ```
 
-## 13. GET /profile
+## 11. DELETE /subscriber/:CourseId
+
+Description:
+
+- Delete the subscriber data if the user wants to cancel the payment for the course purchase based on the specified CourseId. Only subscriber data with "pending" status can be deleted.
+
+Request:
+
+- headers:
+
+```json
+{
+  "authorization": "Bearer <access_token>"
+}
+```
+
+- params:
+
+````json
+{
+  "CourseId": "integer (required)"
+}
+
+Response:
+
+_Response (200 - OK)_
+
+```json
+{
+  "message": "Subscriber has been deleted"
+}
+````
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+  "message": "Unauthorized access"
+}
+```
+
+_Response (404 - Not Found)_
+
+```json
+{
+  "message": "Data not found"
+}
+```
+
+## 12. GET /profile
+
+Description:
+
+- Get the profile data of the logged-in user.
+
+Request:
+
+- headers:
+
+```json
+{
+  "authorization": "Bearer <access_token>"
+}
+```
+
+- params:
+
+```json
+{
+  "id": "integer (required)"
+}
+```
+
+_Response (200 - OK)_
+
+```json
+{
+  "firstName": "string",
+  "lastName": "string",
+  "profilePicture": "string",
+  "bio": "string",
+  "dateOfBirth": "date",
+  "phoneNumber": "string",
+  "UserId": "string"
+}
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+  "message": "Unauthorized access"
+}
+```
+
+_Response (404 - Not Found)_
+
+```json
+{
+  "message": "Data not found"
+}
+```
+
+## 13. PUT /profile
+
+Description:
+
+- Update the profile data of the logged-in user.
+
+Request:
+
+- headers:
+
+```json
+{
+  "authorization": "Bearer <access_token>"
+}
+```
+
+- params:
+
+```json
+{
+  "id": "integer (required)"
+}
+```
+
+- body
+
+```json
+{
+  "firstName": "string",
+  "lastName": "string",
+  "profilePicture": "string",
+  "bio": "string",
+  "dateOfBirth": "date",
+  "phoneNumber": "string",
+  "UserId": "string"
+}
+```
+
+_Response (200 - OK)_
+
+```json
+{ "message": "Profile success to update" }
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+  "message": "Unauthorized access"
+}
+```
+
+_Response (404 - Not Found)_
+
+```json
+{
+  "message": "Data not found"
+}
+```
+
+## 14. PATCH /profile
 
 Description:
 
@@ -700,7 +703,7 @@ Request:
 
 ```json
 {
-  "imgUrl": "file.[jpg,jpeg,png]"
+  "profilePicture": "file.[jpg,jpeg,png]"
 }
 ```
 
@@ -720,35 +723,82 @@ _Response (401 - Unauthorized)_
 }
 ```
 
-_Response (403 - Forbidden)_
-
-```json
-{
-  "message": "Forbidden access"
-}
-```
-
 _Response (404 - Not Found)_
 
 ```json
 {
-  "message": "error not found"
+  "message": "Data not found"
 }
 ```
 
-_Response (400 - Bad Request)_
+## 15. GET /mycourses
+
+Description:
+
+- Get the course data that has been subscribed by the logged-in user. This includes courses with both "pending" and "subscribed" status.
+
+Request:
+
+- headers:
 
 ```json
 {
-  "message": "validation errors"
+  "authorization": "Bearer <access_token>"
 }
 ```
 
-## 14. PUT /profile
+- params:
 
-## 15. PATCH /profile
+```json
+{
+  "id": "integer (required)"
+}
+```
 
-## 16. GET /mycourses
+Response:
+
+_Response (200 - OK)_
+
+```json
+[
+  {
+    "id":"integer",
+    "title": "string",
+    "description": "string",
+    "videoThumbnail": "string",
+    "price": "integer",
+    "isActive": "boolean",
+    "AuthorId": "integer",
+    "CategoryId": "integer",
+    "Category": {
+        "id": "integer",
+        "name": "string",
+        "description": "string",
+        "createdAt": "date",
+        "updatedAt": "date"
+      },
+    "Subscriber":{
+        "id": "integer",
+        "UserId": "integer",
+        "CourseId": "integer",
+        "orderId": "string",
+        "tokenPayment": "string",
+        "status": "pending",
+        "createdAt": "date",
+        "updatedAt": "date"
+    }
+  },
+  ...,
+]
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+  "message": "Unauthorized access"
+}
+```
 
 &nbsp;
 
