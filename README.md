@@ -800,6 +800,62 @@ _Response (401 - Unauthorized)_
 }
 ```
 
+## 16. GET /video/:videoId
+
+Description:
+
+- Get a video by videoId.
+
+Request:
+
+- headers:
+
+```json
+{
+  "authorization": "Bearer <access_token>"
+}
+```
+
+- params:
+
+```json
+{
+  "videoId": "integer (required)"
+}
+```
+
+Response:
+
+_Response (200 - OK)_
+
+```json
+{
+  "title": "string",
+  "urlVideo": "string",
+  "CourseId": "integer",
+  "part": "integer",
+  "description": "string",
+  "createdAt": "date",
+  "updatedAt": "date"
+}
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+  "message": "Unauthorized access"
+}
+```
+
+_Response (404 - Not Found)_
+
+```json
+{
+  "message": "Data not found"
+}
+```
+
 &nbsp;
 
 ## Global Error
