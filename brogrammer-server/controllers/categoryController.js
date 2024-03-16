@@ -1,11 +1,11 @@
 const { Category } = require("../models")
 
-const getCategories = async (req, res, next) => {
+const getCategories = async (res, next) => {
   try {
-    const category = await Category.findAll({
+    const categories = await Category.findAll({
       attributes: ['id', 'name', 'description']
     })
-    res.status(200).json(category)
+    res.status(200).json(categories)
   } catch (error) {
     next(error)
   }

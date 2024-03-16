@@ -3,7 +3,6 @@ const User = require('./userController')
 const Subscribe = require('./subscribeController')
 const Course = require('./courseController')
 const Category = require('./categoryController')
-const Video = require('./videoController')
 const Profile = require('./profileController')
 
 const home = (req, res) => {
@@ -24,7 +23,6 @@ module.exports = {
   addSubscriber: Subscribe.addSubscriber,
   getSubscriber: Subscribe.getSubscriber,
   deleteSubscriber: Subscribe.deleteSubscriber,
-  getVideo: Video.getVideo,
   updateProfile: Profile.updateProfile,
   updateProfilePicture: Profile.updateProfilePicture,
   getProfile: Profile.getProfile

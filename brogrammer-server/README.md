@@ -52,14 +52,6 @@ _Response (201 - Created)_
 }
 ```
 
-_Response (401 - Unauthorized)_
-
-```json
-{
-  "message": "Unauthorized access"
-}
-```
-
 _Response (400 - Bad Request)_
 
 ```json
@@ -98,18 +90,6 @@ _Response (200 - OK)_
 ```json
 {
   "access_token": "string"
-}
-```
-
-_Response (400 - Bad Request)_
-
-```json
-{
-  "message": "Email is required"
-}
-OR
-{
-  "message": "Password is required"
 }
 ```
 
@@ -676,7 +656,7 @@ _Response (401 - InvalidEmailPassword)_
 
 Description:
 
-- Update file image
+- Get profile
 
 Request:
 
@@ -685,22 +665,6 @@ Request:
 ```json
 {
   "authorization": "Bearer <access_token>"
-}
-```
-
-- params:
-
-```json
-{
-  "id": "integer (required)"
-}
-```
-
-- body:
-
-```json
-{
-  "imgUrl": "file.[jpg,jpeg,png]"
 }
 ```
 
@@ -717,14 +681,6 @@ _Response (401 - Unauthorized)_
 ```json
 {
   "message": "Unauthorized access"
-}
-```
-
-_Response (403 - Forbidden)_
-
-```json
-{
-  "message": "Forbidden access"
 }
 ```
 

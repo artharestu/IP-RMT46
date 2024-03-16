@@ -90,7 +90,6 @@ const addSubscriber = async (req, res, next) => {
 const getSubscriber = async (req, res, next) => {
   const UserId = req.user.id
   const { CourseId } = req.params
-
   try {
     const subscriber = await Subscriber.findOne({
       where: {
@@ -99,6 +98,8 @@ const getSubscriber = async (req, res, next) => {
       },
       attributes: ['id', 'UserId', 'CourseId', 'orderId', 'tokenPayment', 'status']
     })
+    if (!subscriber) throw { name: 'NotFound' }
+
     res.status(200).json(subscriber)
   } catch (error) {
     next(error)

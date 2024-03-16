@@ -29,7 +29,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     dateOfBirth: {
       type: DataTypes.DATE,
-      defaultValue: new Date()
+      defaultValue: new Date(),
+      validate: {
+        isDate: {
+          args: true,
+          msg: 'Invalid date format'
+        }
+      }
     },
     phoneNumber: {
       type: DataTypes.STRING,

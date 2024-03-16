@@ -6,6 +6,7 @@
   "scripts": {
     "createDBTest": "clear && npx sequelize --env test db:drop && npx sequelize --env test db:create",
     "migrateTest": "clear && npx sequelize --env test db:migrate:undo:all && npx sequelize --env test db:migrate && npx sequelize --env test db:seed:all",
+    "migrateProd": "clear && npx sequelize --env production db:migrate:undo:all && npx sequelize --env production db:migrate && npx sequelize --env production db:seed:all",
     "createDB": "clear && npx sequelize db:drop && npx sequelize db:create",
     "migrate": "clear && npx sequelize db:migrate:undo:all && npx sequelize db:migrate && npx sequelize db:seed:all",
     "status": "clear && npx sequelize db:migrate:status",
@@ -30,6 +31,7 @@
     "pg": "^8.11.3",
     "sequelize": "^6.37.1",
     "sequelize-cli": "^6.6.2",
+    "supertest": "^6.3.4",
     "uuid": "^9.0.1"
   },
   "devDependencies": {

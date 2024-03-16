@@ -24,16 +24,10 @@ const updateProfile = async (req, res, next) => {
     next(error)
   }
 }
-
 const updateProfilePicture = async (req, res, next) => {
   try {
     const { id } = req.user
-    if (!id) throw { name: 'InvalidData' }
-
-    if (!req.file) throw { name: 'InvalidData' }
-
     const profile = await Profile.findByPk(id)
-    if (!profile) throw { name: 'NotFound' }
 
     cloudinary.config({
       cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -58,7 +52,6 @@ const updateProfilePicture = async (req, res, next) => {
     next(error)
   }
 }
-
 const getProfile = async (req, res, next) => {
   const { id } = req.user
   try {
@@ -75,6 +68,7 @@ const getProfile = async (req, res, next) => {
     next(error)
   }
 }
+
 module.exports = {
   updateProfile,
   updateProfilePicture,

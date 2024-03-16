@@ -14,6 +14,8 @@ router.post('/google-login', Controller.googleLogin);
 router.use(authentication);
 router.get('/courses', Controller.getCourses)
 router.get('/course/:id', Controller.getDetailCourse)
+router.get('/mycourses', Controller.getMyCourses);
+
 router.get('/categories', Controller.getCategories)
 
 router.post('/chat', Controller.chatAI);
@@ -23,12 +25,8 @@ router.patch('/verify/:orderId', Controller.verifyPayment);
 router.get('/subscriber/:CourseId', Controller.getSubscriber);
 router.delete('/subscriber/:CourseId', Controller.deleteSubscriber);
 
-router.get('/video/:videoId', Controller.getVideo);
-
 router.get('/profile', Controller.getProfile);
 router.put('/profile', Controller.updateProfile);
 router.patch('/profile', upload.single('profilePicture'), Controller.updateProfilePicture);
-
-router.get('/mycourses', Controller.getMyCourses);
 
 module.exports = router;
