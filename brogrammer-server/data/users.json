@@ -1,0 +1,20 @@
+[
+  {
+    "email": "sudosu@gmail.com",
+    "password": "admin",
+    "role": "admin",
+    "authType": "local"
+  },
+  {
+    "email": "author@gmail.com",
+    "password": "author",
+    "role": "author",
+    "authType": "local"
+  },
+  {
+    "email": "user@gmail.com",
+    "password": "user",
+    "role": "member",
+    "authType": "local"
+  }
+]
