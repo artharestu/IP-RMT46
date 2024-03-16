@@ -19,6 +19,10 @@ export default function MyCourses() {
         <h1 className="text-warning mt-5 text-center">
           <i>Loading data...</i>
         </h1>
+      ) : myCourses.length === 0 ? (
+        <h1 className="text-warning mt-5 text-center">
+          You don&lsquo;t have any course
+        </h1>
       ) : (
         <>
           <Cards data={myCourses} />
