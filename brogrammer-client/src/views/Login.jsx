@@ -8,14 +8,14 @@ export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
-  const [user, setUser] = useState({
+  const [form, setForm] = useState({
     email: "",
     password: "",
   });
 
   const handleOnChange = (e) => {
     const { id, value } = e.target;
-    setUser((prevUser) => ({
+    setForm((prevUser) => ({
       ...prevUser,
       [id]: value,
     }));
@@ -23,7 +23,7 @@ export default function Login() {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    dispatch(login(user, setIsLoading, navigate));
+    dispatch(login(form, setIsLoading, navigate));
   };
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function Login() {
             type="email"
             className="form-control"
             id="email"
-            value={user.email}
+            value={form.email}
             onChange={handleOnChange}
           />
         </div>
@@ -61,7 +61,7 @@ export default function Login() {
             type="password"
             className="form-control"
             id="password"
-            value={user.password}
+            value={form.password}
             onChange={handleOnChange}
           />
         </div>

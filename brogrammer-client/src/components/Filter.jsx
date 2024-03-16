@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import errorNotification from "../utils/errorNotification";
-import { serverRequest } from "../utils/axios";
+import { useEffect } from "react";
 import Button from "./Button";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCategories } from "../features/category/categorySlice";
 
 export default function Filter({
   handleSearch,
@@ -12,25 +12,11 @@ export default function Filter({
   categoryId,
   handleReset,
 }) {
-  const [category, setCategory] = useState([]);
-
-  const getCategory = async () => {
-    try {
-      const response = await serverRequest({
-        url: "/categories",
-        method: "get",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      setCategory(response.data);
-    } catch (error) {
-      errorNotification(error.response.data.message);
-    }
-  };
+  const dispatch = useDispatch();
+  const categories = useSelector((state) => state.categories.list);
 
   useEffect(() => {
-    getCategory();
+    dispatch(fetchCategories());
   }, []);
 
   return (
@@ -78,9 +64,9 @@ export default function Filter({
           onChange={handleCategory}
         >
           <option value="">All</option>
-          {category.map((item) => (
-            <option key={item.id} value={item.id}>
-              {item.name}
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
             </option>
           ))}
         </select>

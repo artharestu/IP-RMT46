@@ -1,32 +1,15 @@
 import { useState, useEffect } from "react";
-import errorNotification from "../utils/errorNotification";
-import { serverRequest } from "../utils/axios";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProfile } from "../features/profile/profileSlice";
 
 export default function ShowProfile() {
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState({});
   const navigate = useNavigate();
 
-  const fetchData = async () => {
-    setIsLoading(true);
-    try {
-      const response = await serverRequest({
-        url: "/profile",
-        method: "get",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-
-      setData(response.data);
-    } catch (error) {
-      errorNotification(error.response.data.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const dispatch = useDispatch();
+  const profile = useSelector((state) => state.profiles.detail);
 
   const dateFormatted = (date) => {
     const d = new Date(date);
@@ -34,7 +17,7 @@ export default function ShowProfile() {
   };
 
   useEffect(() => {
-    fetchData();
+    dispatch(fetchProfile(setIsLoading));
   }, []);
 
   return (
@@ -44,22 +27,22 @@ export default function ShowProfile() {
       ) : (
         <div className="d-flex flex-column justify-content-center align-items-center mt-1 p-3">
           <img
-            src={data.profilePicture}
+            src={profile.profilePicture}
             alt="Profile"
             className="rounded-circle img-thumbnail border border-warning profile-picture"
           />
           <div className="text-center text-warning mt-3">
             <h3>
-              {data.firstName} {data.lastName}
+              {profile.firstName} {profile.lastName}
             </h3>
-            <p className="text-light">{data.bio}</p>
+            <p className="text-light">{profile.bio}</p>
             <p className="text-light">
               <span className="text-warning">Date of Birth: </span>
-              {dateFormatted(data.dateOfBirth)}
+              {dateFormatted(profile.dateOfBirth)}
             </p>
             <p className="text-light">
-              <span className="text-warning">Phone Number: </span>
-              {data.phoneNumber}
+              <span className="text-warning">Phone Number: </span>+{" "}
+              {profile.phoneNumber}
             </p>
           </div>
           <div className="d-flex align-items-center justify-content-center">
