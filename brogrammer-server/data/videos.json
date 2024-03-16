@@ -40,5 +40,26 @@
     "part": 3,
     "CourseId": 2,
     "description": "Instalasi & Konfigurasi Tailwind CSS. Mengenal tag-tag dasar HTML5, mengetahui tag-tag dasar HTML5, dan membuat website sederhana dengan HTML5."
+  },
+  {
+    "title": "Dasar Pemrograman Javascript",
+    "urlVideo": "RUTV_5m4VeI",
+    "part": 1,
+    "CourseId": 3,
+    "description": "Di seri ini kita akan mempelajari mengenai konsep dasar pemrograman, istilah2 yang ada dalam dunia pemrograman, cara menulis dan mengeksekusi program, dll."
+  },
+  {
+    "title": "Kenapa Belajar Javascript?",
+    "urlVideo": "6UhT1lmV9DE",
+    "part": 2,
+    "CourseId": 3,
+    "description": "Kenapa sih kita belajar javascript di seri ini? yuk kita simak jawabannya di video ini.."
+  },
+  {
+    "title": "Nilai dan tipe data Javascript",
+    "urlVideo": "1FAnrYu7LCM",
+    "part": 3,
+    "CourseId": 3,
+    "description": "di dalam javascript dan banyak bahasa pemrograman lain, ada yang disebut dengan nilai dan tipe data.. apa itu? yuk kita simak di video ini"
   }
 ]
